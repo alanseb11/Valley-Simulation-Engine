@@ -6,6 +6,9 @@ import java.util.Random;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 
+/**
+ * Interface for NPC classes that can provide monologues.
+ */
 public interface Monologuer {
     String getMonologue(Actor listener, GameMap map);
 
