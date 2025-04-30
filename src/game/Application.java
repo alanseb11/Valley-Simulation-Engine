@@ -62,8 +62,11 @@ public class Application {
 
         // game setup
         gameMap.at(24, 11).addItem(new Talisman());
-        gameMap.at(23, 13).addActor(new OmenSheep());
-        gameMap.at(23,12).addActor(new SpiritGoat());
+        // gameMap.at(23, 13).addActor(new OmenSheep());
+        // gameMap.at(23,12).addActor(new SpiritGoat());
+        gameMap.at(23, 13).addActor(new Sellen());
+        gameMap.at(23,12).addActor(new Kale());
+        gameMap.at(23, 11).addActor(new Guts());
 
         world.run();
     }
