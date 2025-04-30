@@ -54,7 +54,7 @@ public class Player extends Actor {
         if (!this.isConscious()) {
             // Oh no! "YOU DIED" message
             for (String line : FancyMessage.YOU_DIED.split("\n")) {
-                new Display().println(line);
+                display.println(line);
                 try {
                     Thread.sleep(200);
                 } catch (Exception exception) {

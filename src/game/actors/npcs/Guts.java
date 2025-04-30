@@ -12,9 +12,11 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.ListenAction;
 import game.actions.UnconsciousAction;
+import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 import game.interfaces.Monologuer;
+import game.weapons.BareFist;
 
 /**
  * Class representing the Guts NPC.
@@ -27,6 +29,10 @@ public class Guts extends Actor implements Monologuer {
      */
     public Guts() {
         super("Guts", 'g', 500);
+        this.setIntrinsicWeapon(new BareFist());
+
+        // Register behaviours
+        behaviours.put(0, new AttackBehaviour());
         behaviours.put(1, new WanderBehaviour());
     }
 
