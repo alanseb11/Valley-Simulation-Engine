@@ -32,7 +32,7 @@ public class Guts extends Actor implements Monologuer {
         this.setIntrinsicWeapon(new BareFist());
 
         // Register behaviours
-        behaviours.put(0, new AttackBehaviour());
+        behaviours.put(0, new AttackBehaviour(target -> target.getAttribute(BaseActorAttributes.HEALTH) > 50));
         behaviours.put(1, new WanderBehaviour());
     }
 
@@ -61,12 +61,12 @@ public class Guts extends Actor implements Monologuer {
     }
 
     /**
-     * Returns the list of actions that Guts can perform.
+     * Returns the list of actions that other actors can perform on Guts.
      *
      * @param otherActor The Actor that is interacting with Guts
      * @param direction  The direction in which the action is being performed
      * @param map        The map containing the Actor
-     * @return An ActionList containing the actions Guts can perform
+     * @return An ActionList containing the actions that can be performed on Guts
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
@@ -79,6 +79,13 @@ public class Guts extends Actor implements Monologuer {
         return actions;
     }
 
+    /**
+     * Returns a random monologue from Guts' monologue pool.
+     *
+     * @param listener The Actor that is listening to Guts
+     * @param map      The map containing the Actor
+     * @return A random monologue from Guts' monologue pool
+     */
     @Override
     public String getMonologue(Actor listener, GameMap map) {
         // Guts' default monologue pool

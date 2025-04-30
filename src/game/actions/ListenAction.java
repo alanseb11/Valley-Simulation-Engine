@@ -5,6 +5,10 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.interfaces.Monologuer;
 
+/**
+ * Represents an action where an {@link Actor} listens to a {@link Monologuer}.
+ * This action allows the actor to hear the monologue of the specified monologuer.
+ */
 public class ListenAction extends Action {
     private Monologuer monologuer;
 

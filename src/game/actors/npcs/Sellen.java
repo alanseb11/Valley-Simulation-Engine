@@ -54,12 +54,12 @@ public class Sellen extends Actor implements Monologuer {
     }
 
     /**
-     * Returns the list of actions that Sellen can perform.
+     * Returns the list of actions that other actors can perform on Sellen.
      *
      * @param otherActor The Actor that is interacting with Sellen
      * @param direction  The direction in which the action is being performed
      * @param map        The map containing the Actor
-     * @return An ActionList containing the actions Sellen can perform
+     * @return An ActionList containing the actions that can be performed on Sellen
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
