@@ -68,6 +68,9 @@ public class Kale extends Actor implements Monologuer {
         
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new ListenAction(this));
+
+            // Items that can be purchased from inventory?
+            // actions.add(new PurchaseAction(this, item));
         }
 
         return actions;

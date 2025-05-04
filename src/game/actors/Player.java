@@ -33,6 +33,7 @@ public class Player extends Actor {
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(stamina));
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.setIntrinsicWeapon(new BareFist());
+        this.addBalance(1000);
     }
 
     /**
