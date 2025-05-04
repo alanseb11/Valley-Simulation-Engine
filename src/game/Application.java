@@ -7,6 +7,10 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.actors.Player;
+import game.actors.npcs.*;
+import game.grounds.*;
+import game.items.*;
 
 /**
  * The main class to setup and run the game.
@@ -51,11 +55,15 @@ public class Application {
             }
         }
 
-        Player player = new Player("Farmer", '@', 100);
+        Player player = new Player("Farmer", '@', 100, 200);
         world.addPlayer(player, gameMap.at(23, 10));
+        player.addItemToInventory(new InheritreeSeed());
+        player.addItemToInventory(new BloodroseSeed());
 
         // game setup
         gameMap.at(24, 11).addItem(new Talisman());
+        gameMap.at(23, 13).addActor(new OmenSheep());
+        gameMap.at(23,12).addActor(new SpiritGoat());
 
         world.run();
     }

@@ -1,4 +1,4 @@
-package game;
+package game.capabilities;
 
 /**
  * Use this enum class to represent a status.
@@ -7,4 +7,9 @@ package game;
  */
 public enum Status {
     HOSTILE_TO_ENEMY,
+    NON_HOSTILE_TO_ENEMY,
+    CURSED,
+    PLANTED,
+    FERTILE,
+    CURATIVE
 }

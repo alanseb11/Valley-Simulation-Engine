@@ -1,4 +1,4 @@
-package game;
+package game.weapons;
 
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 
@@ -11,5 +11,15 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 public class BareFist extends IntrinsicWeapon {
     public BareFist() {
         super(25, "punches", 50);
+    }
+
+    /**
+     * Returns a string representation of the BareFist.
+     *
+     * @return A string representing the BareFist
+     */
+    @Override
+    public String toString() {
+        return "Bare Fist";
     }
 }
