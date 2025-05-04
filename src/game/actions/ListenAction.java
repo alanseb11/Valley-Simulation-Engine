@@ -30,7 +30,7 @@ public class ListenAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        return monologuer + ": \"" + monologuer.getMonologue(actor, map) + "\"";
+        return monologuer + ": \"" + monologuer.playMonologue(actor, map) + "\"";
     }
 
     /**

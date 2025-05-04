@@ -9,17 +9,20 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.ConditionalMonologue;
 import game.actions.ListenAction;
 import game.actions.UnconsciousAction;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 import game.interfaces.Monologuer;
+import game.monologueconditions.DefaultCondition;
 
 /**
  * Class representing the Sellen NPC.
  */
 public class Sellen extends Actor implements Monologuer {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
+    private List<ConditionalMonologue> monologuePool = new ArrayList<>();
 
     /**
      * Constructor.
@@ -27,6 +30,10 @@ public class Sellen extends Actor implements Monologuer {
     public Sellen() {
         super("Sellen", 's', 150);
         behaviours.put(1, new WanderBehaviour());
+
+        // Initialise monologue pool
+        monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "The academy casts out those it fears. Yet knowledge, like the stars, cannot be bound forever."));
+        monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "You sense it too, don't you? The Glintstone hums, even now."));
     }
 
     /**
@@ -73,19 +80,13 @@ public class Sellen extends Actor implements Monologuer {
     }
 
     /**
-     * Returns a monologue for Sellen.
+     * Returns the monologue pool of Sellen.
      *
-     * @return A string representing Sellen's monologue
+     * @return A list of ConditionalMonologue objects representing Sellen's monologues
      */
     @Override
-    public String getMonologue(Actor listener, GameMap map) {
-        // Sellen's monologue pool
-        List<String> monologuePool = new ArrayList<>();
-        monologuePool.add("The academy casts out those it fears. Yet knowledge, like the stars, cannot be bound forever.");
-        monologuePool.add("You sense it too, don't you? The Glintstone hums, even now.");
-        
-        // Randomly select a monologue from the pool
-        return selectRandomMonologue(monologuePool);
+    public List<ConditionalMonologue> getMonologuePool() {
+        return monologuePool;
     }
 
 }

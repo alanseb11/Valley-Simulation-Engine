@@ -8,19 +8,25 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.ConditionalMonologue;
 import game.actions.ListenAction;
 import game.actions.UnconsciousAction;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
+import game.capabilities.Threshold;
 import game.interfaces.Monologuer;
+import game.monologueconditions.DefaultCondition;
+import game.monologueconditions.EmptyInventoryCondition;
+import game.monologueconditions.SurroundingCapabilityCondition;
+import game.monologueconditions.WalletCondition;
 
 /**
  * Class representing the Kale NPC.
  */
 public class Kale extends Actor implements Monologuer {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
+    private List<ConditionalMonologue> monologuePool = new ArrayList<>();
 
     /**
      * Constructor.
@@ -28,6 +34,12 @@ public class Kale extends Actor implements Monologuer {
     public Kale() {
         super("Kale", 'k', 200);
         behaviours.put(1, new WanderBehaviour());
+
+        // Initialise monologue pool
+        monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "A merchant's life is a lonely one. But the roads... they whisper secrets to those who listen."));
+        monologuePool.add(new ConditionalMonologue(new WalletCondition(500, Threshold.BELOW), "Ah, hard times, I see. Keep your head low and your blade sharp."));
+        monologuePool.add(new ConditionalMonologue(new EmptyInventoryCondition(), "Not a scrap to your name? Even a farmer should carry a trinket or two."));
+        monologuePool.add(new ConditionalMonologue(new SurroundingCapabilityCondition(Status.CURSED), "Rest by the flame when you can, friend. These lands will wear you thin."));
     }
 
     /**
@@ -77,36 +89,13 @@ public class Kale extends Actor implements Monologuer {
     }
 
     /**
-     * Returns the monologue of Kale.
+     * Returns the monologue pool of Kale.
      *
-     * @param listener The Actor that is listening to the monologue
-     * @param map      The map containing the Actor
-     * @return The monologue of Kale
+     * @return A list of ConditionalMonologue objects representing Kale's monologues
      */
     @Override
-    public String getMonologue(Actor listener, GameMap map) {
-        // Kale's default monologue pool
-        List<String> monologuePool = new ArrayList<>();
-        monologuePool.add("A merchant's life is a lonely one. But the roads... they whisper secrets to those who listen.");
-
-        // Kale's conditional monologues
-        if (listener.getBalance() < 500) {
-            monologuePool.add("Ah, hard times, I see. Keep your head low and your blade sharp.");
-        }
-
-        if (listener.getItemInventory().isEmpty()) {
-            monologuePool.add("Not a scrap to your name? Even a farmer should carry a trinket or two.");
-        }
-
-        for (Exit exit: map.locationOf(listener).getExits()) {
-            if (exit.getDestination().getGround().hasCapability(Status.CURSED)) {
-                monologuePool.add("Rest by the flame when you can, friend. These lands will wear you thin.");
-                break;
-            }
-        }
-
-        // Select a random monologue from the pool
-        return selectRandomMonologue(monologuePool);
+    public List<ConditionalMonologue> getMonologuePool() {
+        return monologuePool;
     }
 
 }

@@ -10,12 +10,16 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.ConditionalMonologue;
 import game.actions.ListenAction;
 import game.actions.UnconsciousAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
+import game.capabilities.Threshold;
 import game.interfaces.Monologuer;
+import game.monologueconditions.DefaultCondition;
+import game.monologueconditions.HealthCondition;
 import game.weapons.BareFist;
 
 /**
@@ -23,6 +27,7 @@ import game.weapons.BareFist;
  */
 public class Guts extends Actor implements Monologuer {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
+    private List<ConditionalMonologue> monologuePool = new ArrayList<>();
 
     /**
      * Constructor.
@@ -34,6 +39,11 @@ public class Guts extends Actor implements Monologuer {
         // Register behaviours
         behaviours.put(0, new AttackBehaviour(target -> target.getAttribute(BaseActorAttributes.HEALTH) > 50));
         behaviours.put(1, new WanderBehaviour());
+
+        // Initialise monologue pool
+        monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "RAAAAGH!"));
+        monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "I'LL CRUSH YOU ALL!"));
+        monologuePool.add(new ConditionalMonologue(new HealthCondition(50, Threshold.BELOW), "WEAK! TOO WEAK TO FIGHT ME!"));
     }
 
     /**
@@ -80,25 +90,13 @@ public class Guts extends Actor implements Monologuer {
     }
 
     /**
-     * Returns a random monologue from Guts' monologue pool.
+     * Returns the monologue pool of Guts.
      *
-     * @param listener The Actor that is listening to Guts
-     * @param map      The map containing the Actor
-     * @return A random monologue from Guts' monologue pool
+     * @return A list of ConditionalMonologue objects representing Guts' monologues
      */
     @Override
-    public String getMonologue(Actor listener, GameMap map) {
-        // Guts' default monologue pool
-        List<String> monologuePool = new ArrayList<>();
-        monologuePool.add("RAAAAGH!");
-        monologuePool.add("I'LL CRUSH YOU ALL!");
-
-        // Guts' conditional monologues
-        if (listener.getAttribute(BaseActorAttributes.HEALTH) < 50) {
-            monologuePool.add("WEAK! TOO WEAK TO FIGHT ME!");
-        }
-
-        return selectRandomMonologue(monologuePool);
+    public List<ConditionalMonologue> getMonologuePool() {
+        return monologuePool;
     }
 
 }
