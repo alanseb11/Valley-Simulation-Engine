@@ -12,7 +12,7 @@ public class Katana extends WeaponItem implements Purchasable {
     public Katana() {
         super("Katana", 'j', 50, "slices", 60);
     }
-
+    
     @Override
     public void uponPurchase(Actor buyer, GameMap map) {
         buyer.hurt(25);
