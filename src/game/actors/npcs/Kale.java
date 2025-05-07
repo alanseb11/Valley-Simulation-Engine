@@ -25,7 +25,9 @@ import game.monologueconditions.SurroundingCapabilityCondition;
 import game.monologueconditions.WalletCondition;
 import game.purchaseeffects.IncreaseMaxEffect;
 import game.purchaseeffects.MerchantOffer;
+import game.purchaseeffects.RestoreEffect;
 import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
 
 /**
  * Class representing the Kale NPC.
@@ -50,6 +52,8 @@ public class Kale extends Actor implements Monologuer, Merchant {
 
         // Initialise merchant offerings
         offerings.add(new MerchantOffer(this, new Broadsword(), 150, new IncreaseMaxEffect(BaseActorAttributes.STAMINA, 30)));
+        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1700, new RestoreEffect(BaseActorAttributes.STAMINA, 20)));
+
     }
 
     /**

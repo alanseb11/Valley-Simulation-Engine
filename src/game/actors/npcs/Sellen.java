@@ -22,6 +22,7 @@ import game.monologueconditions.DefaultCondition;
 import game.purchaseeffects.IncreaseMaxEffect;
 import game.purchaseeffects.MerchantOffer;
 import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
 
 /**
  * Class representing the Sellen NPC.
@@ -44,6 +45,10 @@ public class Sellen extends Actor implements Monologuer, Merchant {
 
         // Initialise merchant offerings
         offerings.add(new MerchantOffer(this, new Broadsword(), 100, new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 20)));
+
+        // TO ADD GOLDEN BEETLE ONCE POSSIBLE
+        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500, new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 0)));
+
     }
 
     /**
