@@ -21,8 +21,10 @@ import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
 import game.purchaseeffects.IncreaseMaxEffect;
 import game.purchaseeffects.MerchantOffer;
+import game.purchaseeffects.SpawnEffect;
 import game.weapons.Broadsword;
 import game.weapons.DragonslayerGreatsword;
+import game.weapons.Katana;
 
 /**
  * Class representing the Sellen NPC.
@@ -49,7 +51,10 @@ public class Sellen extends Actor implements Monologuer, Merchant {
         // TO ADD GOLDEN BEETLE ONCE POSSIBLE
         offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500, new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 0)));
 
+        offerings.add(new MerchantOffer(this, new Katana(), 500, new SpawnEffect(new OmenSheep(), this)));
+
     }
+
 
     /**
      * Determines the action Sellen will perform on their turn.
