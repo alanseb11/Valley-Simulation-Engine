@@ -7,26 +7,33 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
+import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.ConditionalMonologue;
 import game.actions.ListenAction;
+import game.actions.PurchaseAction;
 import game.actions.UnconsciousAction;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 import game.capabilities.Threshold;
+import game.interfaces.Merchant;
 import game.interfaces.Monologuer;
+import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
 import game.monologueconditions.EmptyInventoryCondition;
 import game.monologueconditions.SurroundingCapabilityCondition;
 import game.monologueconditions.WalletCondition;
+import game.purchaseeffects.IncreaseMaxEffect;
+import game.purchaseeffects.MerchantOffer;
+import game.weapons.Broadsword;
 
 /**
  * Class representing the Kale NPC.
  */
-public class Kale extends Actor implements Monologuer {
+public class Kale extends Actor implements Monologuer, Merchant {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
     private List<ConditionalMonologue> monologuePool = new ArrayList<>();
+    private List<MerchantOffer> offerings = new ArrayList<>();
 
     /**
      * Constructor.
@@ -40,6 +47,9 @@ public class Kale extends Actor implements Monologuer {
         monologuePool.add(new ConditionalMonologue(new WalletCondition(500, Threshold.BELOW), "Ah, hard times, I see. Keep your head low and your blade sharp."));
         monologuePool.add(new ConditionalMonologue(new EmptyInventoryCondition(), "Not a scrap to your name? Even a farmer should carry a trinket or two."));
         monologuePool.add(new ConditionalMonologue(new SurroundingCapabilityCondition(Status.CURSED), "Rest by the flame when you can, friend. These lands will wear you thin."));
+
+        // Initialise merchant offerings
+        offerings.add(new MerchantOffer(this, new Broadsword(), 150, new IncreaseMaxEffect(BaseActorAttributes.STAMINA, 20)));
     }
 
     /**
@@ -81,8 +91,9 @@ public class Kale extends Actor implements Monologuer {
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new ListenAction(this));
 
-            // Items that can be purchased from inventory?
-            // actions.add(new PurchaseAction(this, item));
+            for (MerchantOffer offer : offerings) {
+                actions.add(new PurchaseAction(offer, this, otherActor));
+            }
         }
 
         return actions;
@@ -96,6 +107,16 @@ public class Kale extends Actor implements Monologuer {
     @Override
     public List<ConditionalMonologue> getMonologuePool() {
         return monologuePool;
+    }
+
+    /**
+     * Returns the offerings offered by Kale.
+     *
+     * @return A list of MerchantOffer objects representing the items available for purchase
+     */
+    @Override
+    public List<MerchantOffer> getOfferings() {
+        return offerings;
     }
 
 }

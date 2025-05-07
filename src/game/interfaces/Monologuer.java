@@ -6,7 +6,7 @@ import java.util.Random;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.ConditionalMonologue;
+import game.monologueconditions.ConditionalMonologue;
 
 /**
  * Interface for NPC classes that can provide monologues.
