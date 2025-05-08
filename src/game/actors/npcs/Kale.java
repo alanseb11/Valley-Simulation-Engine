@@ -18,6 +18,7 @@ import game.capabilities.Status;
 import game.capabilities.Threshold;
 import game.interfaces.Merchant;
 import game.interfaces.Monologuer;
+import game.interfaces.PurchaseEffect;
 import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
 import game.monologueconditions.EmptyInventoryCondition;
@@ -51,8 +52,13 @@ public class Kale extends Actor implements Monologuer, Merchant {
         monologuePool.add(new ConditionalMonologue(new SurroundingCapabilityCondition(Status.CURSED), "Rest by the flame when you can, friend. These lands will wear you thin."));
 
         // Initialise merchant offerings
-        offerings.add(new MerchantOffer(this, new Broadsword(), 150, new IncreaseMaxEffect(BaseActorAttributes.STAMINA, 30)));
-        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1700, new RestoreEffect(BaseActorAttributes.STAMINA, 20)));
+        offerings.add(new MerchantOffer(this, new Broadsword(), 150, 
+        new ArrayList<PurchaseEffect>(Arrays.asList(new RestoreEffect(BaseActorAttributes.STAMINA, 20)))
+        ));
+
+        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1700, 
+        new ArrayList<PurchaseEffect>(Arrays.asList(new RestoreEffect(BaseActorAttributes.STAMINA, 20)))
+        ));
 
     }
 

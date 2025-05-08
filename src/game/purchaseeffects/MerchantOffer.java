@@ -1,5 +1,7 @@
 package game.purchaseeffects;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
@@ -11,7 +13,7 @@ public class MerchantOffer {
     private Merchant merchant;
     private final Purchasable item;
     private final int price;
-    private final PurchaseEffect effect;
+    private final ArrayList<PurchaseEffect> effects;
 
     /**
      * Constructor.
@@ -20,11 +22,11 @@ public class MerchantOffer {
      * @param price       The price of the item
      * @param effect      The effect to be applied to the buyer
      */
-    public MerchantOffer(Merchant merchant, Purchasable item, int price, PurchaseEffect effect) {
+    public MerchantOffer(Merchant merchant, Purchasable item, int price, ArrayList<PurchaseEffect> effects) {
         this.merchant = merchant;
         this.item = item;
         this.price = price;
-        this.effect = effect;
+        this.effects = effects;
     }
 
     /**
@@ -50,8 +52,13 @@ public class MerchantOffer {
         // Add the item to the buyer's inventory
         buyer.addItemToInventory((Item) item);
 
-        // Apply the effect to the buyer
-        return "\"Pleasure doing business,\" grins " + merchant + " as " + buyer + " receives the " + item + "\nInstantly, " + effect.uponPurchase(buyer, map);
+        String effectString = "";
+
+        // Apply the effects to the buyer
+        for (PurchaseEffect effect : effects) {
+            effectString += effect.uponPurchase(buyer, map) + "\n";
+        }
+        return "\"Pleasure doing business,\" grins " + merchant + " as " + buyer + " receives the " + item + "\nInstantly, " + effectString;
     }
 
     public String getItem() {

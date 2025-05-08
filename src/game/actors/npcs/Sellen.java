@@ -17,6 +17,7 @@ import game.behaviours.WanderBehaviour;
 import game.capabilities.Status;
 import game.interfaces.Merchant;
 import game.interfaces.Monologuer;
+import game.interfaces.PurchaseEffect;
 import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
 import game.purchaseeffects.IncreaseMaxEffect;
@@ -47,11 +48,21 @@ public class Sellen extends Actor implements Monologuer, Merchant {
         monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "You sense it too, don't you? The Glintstone hums, even now."));
 
         // Initialise merchant offerings
-        offerings.add(new MerchantOffer(this, new Broadsword(), 100, new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 20)));
-        offerings.add(new MerchantOffer(this, new Katana(), 500, new SpawnEffect(new OmenSheep())));
+        offerings.add(new MerchantOffer(this, new Broadsword(), 100,
+                new ArrayList<PurchaseEffect>(Arrays.asList(new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 20)))
+        ));
+
+        // Katana Purchase
+        offerings.add(new MerchantOffer(this, new Katana(), 500,
+                new ArrayList<PurchaseEffect>(Arrays.asList(
+                        new SpawnEffect(new OmenSheep()), new RestoreEffect(BaseActorAttributes.HEALTH, 10), new IncreaseMaxEffect(BaseActorAttributes.STAMINA, 20)
+                ))
+        ));
 
         // TO ADD GOLDEN BEETLE ONCE POSSIBLE
-        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500, new SpawnEffect(null)));
+        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500,
+                new ArrayList<PurchaseEffect>(Arrays.asList(new SpawnEffect(new OmenSheep())))
+        ));
     }
 
 
