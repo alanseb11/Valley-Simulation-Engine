@@ -25,9 +25,9 @@ public interface Monologuer {
         List<String> filteredMonologues = new ArrayList<>();
 
         // Filter monologues based on the listener's attributes
-        for (ConditionalMonologue condition : getMonologuePool()) {
-            if (condition.isApplicableTo(listener, map)) {
-                filteredMonologues.add(condition.getMonologue());
+        for (ConditionalMonologue monologue : getMonologuePool()) {
+            if (monologue.isApplicableTo(listener, map)) {
+                filteredMonologues.add(monologue.getMonologue());
             }
         }
 

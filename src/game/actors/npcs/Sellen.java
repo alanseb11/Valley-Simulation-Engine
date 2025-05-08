@@ -21,6 +21,7 @@ import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
 import game.purchaseeffects.IncreaseMaxEffect;
 import game.purchaseeffects.MerchantOffer;
+import game.purchaseeffects.RestoreEffect;
 import game.purchaseeffects.SpawnEffect;
 import game.weapons.Broadsword;
 import game.weapons.DragonslayerGreatsword;
@@ -47,12 +48,10 @@ public class Sellen extends Actor implements Monologuer, Merchant {
 
         // Initialise merchant offerings
         offerings.add(new MerchantOffer(this, new Broadsword(), 100, new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 20)));
+        offerings.add(new MerchantOffer(this, new Katana(), 500, new SpawnEffect(new OmenSheep())));
 
         // TO ADD GOLDEN BEETLE ONCE POSSIBLE
-        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500, new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 0)));
-
-        offerings.add(new MerchantOffer(this, new Katana(), 500, new SpawnEffect(new OmenSheep(), this)));
-
+        offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500, new SpawnEffect(null)));
     }
 
 

@@ -12,16 +12,13 @@ import java.util.List;
 
 public class SpawnEffect implements PurchaseEffect {
     private Actor actorToSpawn;
-    private Actor anchorActor; // The actor to spawn near
 
     /**
      * Constructor.
      * @param actorToSpawn The actor to be spawned.
-     * @param anchorActor The actor around which the new actor will be spawned.
      */
-    public SpawnEffect(Actor actorToSpawn, Actor anchorActor) {
+    public SpawnEffect(Actor actorToSpawn) {
         this.actorToSpawn = actorToSpawn;
-        this.anchorActor = anchorActor;
     }
 
     /**
@@ -32,35 +29,26 @@ public class SpawnEffect implements PurchaseEffect {
      */
     @Override
     public String uponPurchase(Actor buyer, GameMap map) {
-        if (this.anchorActor == null) {
-            return "Anchor actor for spawning is null.";
-        }
-        if (this.actorToSpawn == null) {
-            return "Actor to spawn is null.";
-        }
-        
-        Location anchorLocation = map.locationOf(anchorActor);
-        if (anchorLocation == null) {
-            return anchorActor.toString() + " not found on map, cannot spawn " + actorToSpawn.toString() + ".";
-        }
-
         List<Location> possibleLocations = new ArrayList<>();
-        for (Exit exit : anchorLocation.getExits()) {
+
+        // Check all adjacent exits from the buyer's location
+        for (Exit exit : map.locationOf(buyer).getExits()) {
             Location destination = exit.getDestination();
-            // Check if destination is valid, actor can enter, and no other actor is there
-            if (destination != null && map.isAnActorAt(destination) == false && destination.canActorEnter(actorToSpawn)) {
+            // Check if destination is valid
+            if (destination.canActorEnter(actorToSpawn)) {
                 possibleLocations.add(destination);
             }
         }
 
         if (possibleLocations.isEmpty()) {
-            return "No available adjacent spawn location found near " + anchorActor.toString() + " for " + actorToSpawn.toString() + ".";
+            return "No available adjacent spawn location found near " + buyer + " for " + actorToSpawn + ".";
         }
 
+        // Randomly select a location from the possible locations to spawn
         Collections.shuffle(possibleLocations);
         Location spawnLocation = possibleLocations.get(0);
-        map.addActor(this.actorToSpawn, spawnLocation);
+        map.addActor(actorToSpawn, spawnLocation);
         
-        return actorToSpawn.toString() + " has spawned near " + anchorActor.toString() + ".";
+        return actorToSpawn + " has spawned near " + buyer + ".";
     }
 }
