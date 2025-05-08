@@ -48,18 +48,19 @@ public class Sellen extends Actor implements Monologuer, Merchant {
         monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "You sense it too, don't you? The Glintstone hums, even now."));
 
         // Initialise merchant offerings
+
+        // Broadsword offering
         offerings.add(new MerchantOffer(this, new Broadsword(), 100,
                 new ArrayList<PurchaseEffect>(Arrays.asList(new IncreaseMaxEffect(BaseActorAttributes.HEALTH, 20)))
         ));
-
-        // Katana Purchase
+        // Katana offering
         offerings.add(new MerchantOffer(this, new Katana(), 500,
                 new ArrayList<PurchaseEffect>(Arrays.asList(
                         new SpawnEffect(new OmenSheep()), new RestoreEffect(BaseActorAttributes.HEALTH, 10), new IncreaseMaxEffect(BaseActorAttributes.STAMINA, 20)
                 ))
         ));
-
-        // TO ADD GOLDEN BEETLE ONCE POSSIBLE
+        // DragonslayerGreatsword offering
+        // TODO: Add Golden Beetle instead of OmenSheep when possible
         offerings.add(new MerchantOffer(this, new DragonslayerGreatsword(), 1500,
                 new ArrayList<PurchaseEffect>(Arrays.asList(new SpawnEffect(new OmenSheep())))
         ));
