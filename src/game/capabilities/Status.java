@@ -12,5 +12,6 @@ public enum Status {
     PLANTED,
     FERTILE,
     CURATIVE,
-    BLESSED_BY_GRACE
+    BLESSED_BY_GRACE,
+    FOLLOWABLE
 }
