@@ -10,14 +10,15 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.Location;
-import game.actions.EatBeetleAction;
+import game.actions.EatAction;
 import game.capabilities.Status;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.interfaces.Eatable;
 import game.items.GoldenEgg;
 
 
-public class GoldenBeetle extends Actor{
+public class GoldenBeetle extends Actor implements Eatable {
 
     private int health = 25;
     private int turnsSinceLastEgg = 0;
@@ -62,11 +63,22 @@ public class GoldenBeetle extends Actor{
         return null;
     }
 
+
+    @Override
+    public String eatenBy(Actor actor, GameMap map) {
+        actor.heal(15);
+        if (actor.hasCapability(Status.PLAYER)) {
+            actor.addBalance(1000);
+        }
+        map.removeActor(this);
+        return actor + " eats the " + this + " and gains 15 health + 1000 runes!";
+    }
+
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
         if (otherActor.hasCapability(Status.PLAYER)) {
-            actions.add(new EatBeetleAction(this));
+            actions.add(new EatAction(this));
         }
         return actions;
     }
