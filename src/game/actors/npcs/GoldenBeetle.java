@@ -1,30 +1,43 @@
 package game.actors.npcs;
 
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actors.Behaviour;
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.GameMap;
-import game.actions.EatBeetleAction;
-import game.actions.FollowBehaviour;
-import game.capabilities.Status;
-import game.items.GoldenEgg;
-import game.behaviours.Behaviour;
-import game.behaviours.WanderBehaviour;
-
 import java.util.HashMap;
 import java.util.Map;
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.actors.Behaviour;
+import edu.monash.fit2099.engine.actions.Action;
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.displays.Display;
+import game.capabilities.Status;
+import game.behaviours.FollowBehaviour;
+import game.behaviours.WanderBehaviour;
+import game.items.GoldenEgg;
+
 
 public class GoldenBeetle extends Actor{
-    private int turns = 0;
-    private Map<Integer, Behaviour> behaviours = new HashMap<>();
+
+    private int health = 25;
+    private int turnsSinceLastEgg = 0;
+    private Actor followTarget = null;
+    private final Map<Integer, Behaviour> behaviours = new HashMap<>();
 
     public GoldenBeetle() {
         super("Golden Beetle", 'b', 25);
-        this.behaviours.put(10, new WanderBehaviour());
-
+        behaviours.put(2, new WanderBehaviour());
     }
+
+    @Override
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        turnsSinceLastEgg++;
+
+        if (turnsSinceLastEgg >=5) {
+            map.locationOf(this).addItem(new GoldenEgg);
+            turnsSinceLastEgg = 0;
+            display.println(this + " has layed a Golden Egg");
+            return null;
+        }
+    }
+
 
 
 
