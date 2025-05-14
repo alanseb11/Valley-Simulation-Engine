@@ -1,5 +1,6 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 
@@ -8,18 +9,20 @@ import edu.monash.fit2099.engine.displays.Display;
  * 
  * The countdown value decreases with each turn, and when it reaches zero, the actor succumbs to the Crimson Rot.
  */
-public class CountdownDecay {
+public class Countdown {
     private int countdown;
-    private int initialCountdown;
+    private final int initialCountdown;
+    private final Action action;
 
     /**
      * Constructs a {@code CountdownDecay} with the specified initial countdown value.
      * 
      * @param initial_countdown The initial countdown value
      */
-    public CountdownDecay(int initial_countdown) {
+    public Countdown(int initial_countdown, Action action) {
         this.countdown = initial_countdown;
         this.initialCountdown = initial_countdown;
+        this.action = action;
     }
 
     /**
@@ -36,6 +39,15 @@ public class CountdownDecay {
      */
     public int getCountdown() {
         return countdown;
+    }
+
+    /**
+     * Gets the current action.
+     *
+     * @return The current action
+     */
+    public Action getAction() {
+        return action;
     }
 
     /**
@@ -64,7 +76,7 @@ public class CountdownDecay {
      */
     public void applyTo(Actor actor) {
         Display display = new Display();
-        display.println(actor + " has " + countdown + (countdown == 1 ? " turn" : " turns") + " left before succumbing to the Crimson Rot");
+        display.println(actor + " has " + countdown + (countdown == 1 ? " turn" : " turns") + " left before " + action.menuDescription(actor));
         decrement();
     }
 

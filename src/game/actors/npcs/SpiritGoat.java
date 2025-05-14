@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.CountdownDecay;
+import game.Countdown;
 import game.actions.*;
 import game.behaviours.*;
 import game.capabilities.Status;
@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class SpiritGoat extends Actor implements Curable, Producible {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
-    private CountdownDecay countdown = new CountdownDecay(10);
+    private Countdown countdown = new Countdown(10, new UnconsciousAction());
 
     public SpiritGoat() {
         super("Spirit Goat", 'y', 50);
@@ -117,12 +117,12 @@ public class SpiritGoat extends Actor implements Curable, Producible {
 
             // Checks if the surrounding ground or actors are BLESSED_BY_GRACE
             if (surrounding.getGround().hasCapability(Status.BLESSED_BY_GRACE)
-            || surrounding.getActor().hasCapability(Status.BLESSED_BY_GRACE)) {
+            || otherActor.hasCapability(Status.BLESSED_BY_GRACE)) {
                 return true;
             }
 
             // Checks if the surrounding actors have an item BLESSED_BY_GRACE
-            for (Item item: surrounding.getActor().getItemInventory()) {
+            for (Item item: otherActor.getItemInventory()) {
                 if (item.hasCapability(Status.BLESSED_BY_GRACE)) {
                     return true;
                 }

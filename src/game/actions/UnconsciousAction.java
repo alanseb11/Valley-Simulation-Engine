@@ -36,6 +36,6 @@ public class UnconsciousAction extends Action{
      */
 	@Override
 	public String menuDescription(Actor actor) {
-		return null; // Not selectable or displayable in the I/O menu
+		return actor + " is unconscious";
 	}
 }

@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.interfaces.Producible;
 
 public class ProduceAction extends Action {
-    private Producible producible;
+    private final Producible producible;
 
     public ProduceAction(Producible producible) {
         this.producible = producible;

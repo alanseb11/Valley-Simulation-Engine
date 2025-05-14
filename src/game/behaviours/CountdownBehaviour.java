@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.CountdownDecay;
+import game.Countdown;
 import game.actions.UnconsciousAction;
 
 /**
@@ -12,14 +12,14 @@ import game.actions.UnconsciousAction;
  * If the countdown expires, the actor becomes unconscious.
  */
 public class CountdownBehaviour implements Behaviour {
-    private CountdownDecay countdown;
+    private Countdown countdown;
 
     /**
      * Constructs a CountdownBehaviour with the specified countdown.
      *
      * @param countdown The CountdownDecay object representing the countdown
      */
-    public CountdownBehaviour(CountdownDecay countdown) {
+    public CountdownBehaviour(Countdown countdown) {
         this.countdown = countdown;
     }
 
@@ -34,7 +34,8 @@ public class CountdownBehaviour implements Behaviour {
     @Override
     public Action getAction(Actor actor, GameMap map) {
         if (countdown.isExpired()) {
-            return new UnconsciousAction();
+            countdown.resetCountdown();
+            return countdown.getAction();
         }
         countdown.applyTo(actor);
         return null;
