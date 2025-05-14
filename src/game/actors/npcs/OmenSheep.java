@@ -45,8 +45,8 @@ public class OmenSheep extends Actor implements Curable, Producible {
 
         // Registering the behaviours for the Omen Sheep
         behaviours.put(0, new CountdownBehaviour(countdownDecay));
-        behaviours.put(1, new WanderBehaviour());
-        behaviours.put(2, new CountdownBehaviour(timeUntilProduce));
+        behaviours.put(1, new CountdownBehaviour(timeUntilProduce));
+        behaviours.put(2, new WanderBehaviour());
     }
 
     /**
