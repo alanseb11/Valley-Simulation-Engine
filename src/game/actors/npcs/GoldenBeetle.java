@@ -27,7 +27,6 @@ import game.items.GoldenEgg;
 
 public class GoldenBeetle extends Actor implements Eatable {
 
-    private int health = 25;
     private int turnsSinceLastEgg = 0;
     private Actor followTarget = null;
     private final Map<Integer, Behaviour> behaviours = new HashMap<>();
@@ -103,9 +102,7 @@ public class GoldenBeetle extends Actor implements Eatable {
     @Override
     public String eatenBy(Actor actor, GameMap map) {
         actor.heal(15);
-        if (actor.hasCapability(Status.PLAYER)) {
-            actor.addBalance(1000);
-        }
+        actor.addBalance(1000);
         map.removeActor(this);
         return actor + " eats the " + this + " and gains 15 health + 1000 runes!";
     }
@@ -122,13 +119,10 @@ public class GoldenBeetle extends Actor implements Eatable {
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        if (otherActor.hasCapability(Status.PLAYER)) {
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new EatAction(this));
         }
         return actions;
     }
-
-
-
 
 }

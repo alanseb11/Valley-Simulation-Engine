@@ -20,8 +20,8 @@ public class GoldenEgg extends Egg implements Eatable {
 
     @Override
     public void tick(Location currentLocation) {
-        super.tick(currentLocation);
 
+        //This checks whether the egg is still on the ground
         if (!currentLocation.getItems().contains(this)) {
             return;
         }
@@ -51,7 +51,7 @@ public class GoldenEgg extends Egg implements Eatable {
     @Override
     public ActionList allowableActions(Actor actor, GameMap map) {
         ActionList actions = new ActionList();
-        if (actor.hasCapability(Status.PLAYER)) {
+        if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new EatAction(this));
         }
         return actions;
