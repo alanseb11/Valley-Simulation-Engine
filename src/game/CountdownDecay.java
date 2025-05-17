@@ -63,8 +63,8 @@ public class CountdownDecay {
      * @param actor The actor to whom the countdown effect is applied
      */
     public void applyTo(Actor actor) {
-        Display display = new Display();
-        display.println(actor + " has " + countdown + (countdown == 1 ? " turn" : " turns") + " left before succumbing to the Crimson Rot");
+        // Display display = new Display();
+        // display.println(actor + " has " + countdown + (countdown == 1 ? " turn" : " turns") + " left before succumbing to the Crimson Rot");
         decrement();
     }
 

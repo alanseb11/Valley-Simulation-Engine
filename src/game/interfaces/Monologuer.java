@@ -6,7 +6,7 @@ import java.util.Random;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.ConditionalMonologue;
+import game.monologueconditions.ConditionalMonologue;
 
 /**
  * Interface for NPC classes that can provide monologues.
@@ -25,9 +25,9 @@ public interface Monologuer {
         List<String> filteredMonologues = new ArrayList<>();
 
         // Filter monologues based on the listener's attributes
-        for (ConditionalMonologue condition : getMonologuePool()) {
-            if (condition.isApplicableTo(listener, map)) {
-                filteredMonologues.add(condition.getMonologue());
+        for (ConditionalMonologue monologue : getMonologuePool()) {
+            if (monologue.isApplicableTo(listener, map)) {
+                filteredMonologues.add(monologue.getMonologue());
             }
         }
 
