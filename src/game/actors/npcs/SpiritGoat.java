@@ -16,6 +16,7 @@ import game.behaviours.*;
 import game.capabilities.Status;
 import game.interfaces.Curable;
 import game.interfaces.Producible;
+import game.monologueconditions.SurroundingCapabilityCondition;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -112,24 +113,12 @@ public class SpiritGoat extends Actor implements Curable, Producible {
 
     @Override
     public boolean canProduce(GameMap map) {
+
         for (Exit exit : map.locationOf(this).getExits()) {
             Location surrounding = exit.getDestination();
-
-            // Checks if the surrounding ground or actors are BLESSED_BY_GRACE
-            if (surrounding.getGround().hasCapability(Status.BLESSED_BY_GRACE)) {
+            // Checks if the surrounding items are BLESSED_BY_GRACE
+            if (SurroundingCapabilityCondition.hasCapabilityInLocation(surrounding, Status.BLESSED_BY_GRACE)) {
                 return true;
-            }
-
-            if (surrounding.containsAnActor()) {
-                if (surrounding.getActor().hasCapability(Status.BLESSED_BY_GRACE)) {
-                    return true;
-                }
-                // Allow curing if the other actor has a curative item
-                for (Item item : surrounding.getActor().getItemInventory()) {
-                    if (item.hasCapability(Status.BLESSED_BY_GRACE)) {
-                        return true;
-                    }
-                }
             }
         }
 

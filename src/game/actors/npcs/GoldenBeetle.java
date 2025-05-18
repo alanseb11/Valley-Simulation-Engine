@@ -6,12 +6,14 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.actors.Behaviour;
+import edu.monash.fit2099.demo.huntsman.AttackAction;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Countdown;
 import game.actions.EatAction;
+import game.actions.ProduceAction;
 import game.capabilities.Status;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
@@ -28,11 +30,9 @@ import game.items.GoldenEgg;
  * </p>
  */
 public class GoldenBeetle extends Actor implements Eatable, Producible {
-    private int health = 25;
-    private int turnsSinceLastEgg = 0;
-    private Actor followTarget = null;
+
     private final Map<Integer, Behaviour> behaviours = new HashMap<>();
-    private final Countdown timeUntilLay = new Countdown(5);
+    private final Countdown timeUntilLay = new Countdown(5, new ProduceAction(this));
 
     /**
      * Constructs a new Golden Beetle with 25 HP and assigns its initial behaviours.
@@ -111,21 +111,9 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
         ActionList actions = new ActionList();
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new EatAction(this));
+            actions.add(new AttackAction(this, direction));
         }
         return actions;
-    }
-
-    /**
-     * Indicates if the Golden Beetle can produce an egg.
-     * Uses a countdown timer to control egg laying every 5 turns.
-     */
-    @Override
-    public boolean canProduce(GameMap map) {
-        if (timeUntilLay.isExpired()) {
-            timeUntilLay.resetCountdown();
-            return true;
-        }
-        return false;
     }
 
     /**

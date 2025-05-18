@@ -18,6 +18,7 @@ import game.grounds.Inheritree;
 import game.interfaces.Curable;
 import game.interfaces.Producible;
 import game.items.Egg;
+import game.items.OmenSheepEgg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -129,7 +130,7 @@ public class OmenSheep extends Actor implements Curable, Producible {
     @Override
     public String produce(Actor actor, GameMap map) {
         // Produces an egg at the GameMap position of the OmenSheep
-        map.locationOf(this).addItem(new Egg());
+        map.locationOf(this).addItem(new OmenSheepEgg());
         return this + " has produced an egg!";
     }
 }

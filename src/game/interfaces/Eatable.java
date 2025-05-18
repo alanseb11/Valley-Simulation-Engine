@@ -9,11 +9,11 @@ import game.capabilities.Status;
 public interface Eatable {
     String eatenBy(Actor actor, GameMap map);
 
-    default ActionList getEatAction(Actor actor) {
-        ActionList actions = new ActionList();
-        if (actor.hasCapability(Status.PLAYER)) {
-            actions.add(new EatAction(this));
-        }
-        return actions;
-    }
+    // default ActionList getEatAction(Actor actor) {
+    //     ActionList actions = new ActionList();
+    //     if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+    //         actions.add(new EatAction(this));
+    //     }
+    //     return actions;
+    // }
 }

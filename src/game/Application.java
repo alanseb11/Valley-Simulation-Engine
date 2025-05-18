@@ -64,10 +64,10 @@ public class Application {
         gameMap.at(24, 11).addItem(new Talisman());
         gameMap.at(23, 14).addActor(new OmenSheep());
         gameMap.at(21,14).addActor(new SpiritGoat());
-        gameMap.at(24, 10).addActor(new Sellen());
+        // gameMap.at(24, 10).addActor(new Sellen());
         gameMap.at(22,10).addActor(new Kale());
         gameMap.at(22, 14).addActor(new Guts());
-//        gameMap.at(21,7).addActor(new GoldenBeetle());
+        gameMap.at(24,10).addActor(new GoldenBeetle());
 
         world.run();
     }
