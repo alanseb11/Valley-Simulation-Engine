@@ -3,6 +3,7 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.Utility;
 import game.interfaces.Plantable;
 
 /**
@@ -17,7 +18,7 @@ public class PlantAction extends Action {
     /**
      * Constructor.
      *
-     * @param item the item to plant
+     * @param seed the item to plant
      */
     public PlantAction(Plantable seed) {
         this.seed = seed;
@@ -40,7 +41,7 @@ public class PlantAction extends Action {
         // Add the planted form of the seed to the current location
         seed.plant(actor, map);
         String crop = seed.getPlantedForm().toString();
-        String article = startsWithVowel(crop) ? "an " : "a ";
+        String article = Utility.startsWithVowel(crop) ? "an " : "a ";
         return actor + " plants the " + seed + " and it blooms into " + article + crop;
     }
 
@@ -53,17 +54,6 @@ public class PlantAction extends Action {
     @Override
     public String menuDescription(Actor actor) {
         return actor + " plants the " + seed;
-    }
-
-    /**
-     * Utility method to determine if a word starts with a vowel.
-     *
-     * @param word The word to check.
-     * @return true if the word starts with a vowel, false otherwise.
-     */
-    private boolean startsWithVowel(String word) {
-        char firstChar = Character.toLowerCase(word.charAt(0));
-        return firstChar == 'a' || firstChar == 'e' || firstChar == 'i' || firstChar == 'o' || firstChar == 'u';
     }
 
 }

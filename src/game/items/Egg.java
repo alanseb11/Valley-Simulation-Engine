@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import game.interfaces.Eatable;
 
 public class Egg extends Item implements Eatable {
@@ -17,10 +18,14 @@ public class Egg extends Item implements Eatable {
     }
 
     @Override
-    public ActionList allowableActions(Actor owner, GameMap map) {
-        return getEatAction(owner, map);
+    public void tick(Location currentLocation, Actor actor) {
+
     }
 
+    @Override
+    public ActionList allowableActions(Actor owner, GameMap map) {
+        return getEatAction(owner);
+    }
 
     @Override
     public String eatenBy(Actor actor, GameMap map) {
