@@ -13,7 +13,16 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.UnconsciousAction;
 import game.behaviours.WanderBehaviour;
 
+/**
+ * Abstract class representing a NPC in the game.
+ * This class extends the Actor class and provides basic functionality for NPCs.
+ */
 public abstract class NPC extends Actor {
+    /**
+     * A map of behaviours that the NPC can perform.
+     * The key is an integer representing the priority of the behaviour.
+     * The value is the Behaviour itself.
+     */
     protected Map<Integer, Behaviour> behaviours = new HashMap<>();
 
     /**

@@ -10,6 +10,10 @@ import game.interfaces.PurchaseEffect;
 import game.interfaces.Merchant;
 import game.interfaces.Purchasable;
 
+/**
+ * MerchantOffer is a class that represents an offer made by a merchant to a buyer.
+ * It contains the item being sold, its price, and the effects that will be applied to the buyer upon purchase.
+ */
 public class MerchantOffer {
     private Merchant merchant;
     private final Purchasable item;

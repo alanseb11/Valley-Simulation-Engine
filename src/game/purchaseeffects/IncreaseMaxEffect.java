@@ -6,6 +6,10 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.interfaces.PurchaseEffect;
 
+/**
+ * IncreaseMaxEffect is a class that implements the PurchaseEffect interface.
+ * It increases an actor's attribute maximum by a specific amount when an item is purchased.
+ */
 public class IncreaseMaxEffect implements PurchaseEffect {
     private final int increaseAmount;
     private BaseActorAttributes attribute;

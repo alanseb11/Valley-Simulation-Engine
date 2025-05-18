@@ -11,6 +11,10 @@ import game.actions.ListenAction;
 import game.capabilities.Status;
 import game.monologueconditions.ConditionalMonologue;
 
+/**
+ * Abstract class representing a NPC that can monologue.
+ * This class extends the NPC class and provides functionality for monologuing NPCs.
+ */
 public class MonologuingNPC extends NPC {
     protected List<ConditionalMonologue> monologuePool = new ArrayList<>();
 

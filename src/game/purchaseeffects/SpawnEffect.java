@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * SpawnEffect is a class that implements the PurchaseEffect interface.
+ * It spawns an actor on a random available adjacent tile to the anchorActor.
+ */
 public class SpawnEffect implements PurchaseEffect {
     private Actor actorToSpawn;
 

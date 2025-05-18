@@ -6,6 +6,10 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.interfaces.PurchaseEffect;
 
+/**
+ * RestoreEffect is a class that implements the PurchaseEffect interface.
+ * It restores a specified amount of an actor's attribute when an item is purchased.
+ */
 public class RestoreEffect implements PurchaseEffect {
     private final int increaseAmount;
     private BaseActorAttributes attribute;

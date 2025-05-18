@@ -6,6 +6,10 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Status;
 import game.actions.AttackAction;
 
+/**
+ * Abstract class representing an NPC that can be attacked.
+ * This class extends the NPC class and provides functionality for attackable NPCs.
+ */
 public abstract class AttackableNPC extends NPC {
     /**
      * Constructor for AttackableNPC.
