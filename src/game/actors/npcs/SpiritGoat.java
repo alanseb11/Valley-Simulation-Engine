@@ -7,12 +7,15 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import game.CountdownDecay;
 import game.actions.*;
 import game.behaviours.*;
 import game.capabilities.Status;
 import game.interfaces.Curable;
+import game.interfaces.Producible;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +27,7 @@ import java.util.Map;
  * This class was adapted from the huntsman folder in the provided base code.
  * Original source: edu/monash/fit2099/demo/huntsman/HuntsmanSpider.java
  */
-public class SpiritGoat extends Actor implements Curable {
+public class SpiritGoat extends Actor implements Curable, Producible {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
     private CountdownDecay countdown = new CountdownDecay(10);
 
@@ -85,6 +88,11 @@ public class SpiritGoat extends Actor implements Curable {
             }
         }
 
+        // Allow producing if the SpiritGoat can produce
+        if (canProduce(otherActor, map)) {
+            actions.add(new ProduceAction(this));
+        }
+
         return actions;
     }
 
@@ -102,4 +110,37 @@ public class SpiritGoat extends Actor implements Curable {
         return "The " + item + " glows in " + user + "'s hand. Time rewinds for " + this + ", countdown reset to " + countdown.getCountdown();
     }
 
+    @Override
+    public boolean canProduce(Actor otherActor, GameMap map) {
+        for (Exit exit : map.locationOf(this).getExits()) {
+            Location surrounding = exit.getDestination();
+
+            // Checks if the surrounding ground or actors are BLESSED_BY_GRACE
+            if (surrounding.getGround().hasCapability(Status.BLESSED_BY_GRACE)
+            || surrounding.getActor().hasCapability(Status.BLESSED_BY_GRACE)) {
+                return true;
+            }
+
+            // Checks if the surrounding actors have an item BLESSED_BY_GRACE
+            for (Item item: surrounding.getActor().getItemInventory()) {
+                if (item.hasCapability(Status.BLESSED_BY_GRACE)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String produce(Actor actor, GameMap map) {
+        for (Exit exit : map.locationOf(this).getExits()) {
+            Location surrounding = exit.getDestination();
+            // Checks for a valid spawn location in the SpiritGoat's surroundings
+            if (surrounding.canActorEnter(this)) {
+                surrounding.addActor(new SpiritGoat());
+                return this + " has produced an offspring!";
+            }
+        }
+        return this + " is stranded and has nowhere to produce an offspring!";
+    }
 }

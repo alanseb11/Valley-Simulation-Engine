@@ -16,6 +16,8 @@ import game.behaviours.*;
 import game.capabilities.Status;
 import game.grounds.Inheritree;
 import game.interfaces.Curable;
+import game.interfaces.Producible;
+import game.items.Egg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +29,10 @@ import java.util.Map;
  * This class was adapted from the huntsman folder in the provided base code.
  * Original source: edu/monash/fit2099/demo/huntsman/HuntsmanSpider.java
  */
-public class OmenSheep extends Actor implements Curable {
+public class OmenSheep extends Actor implements Curable, Producible {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
-    private CountdownDecay countdown = new CountdownDecay(15); 
+    private CountdownDecay countdown = new CountdownDecay(15);
+    private CountdownDecay timeUntilProduce = new CountdownDecay(7);
 
     /**
      * Constructor.
@@ -43,6 +46,7 @@ public class OmenSheep extends Actor implements Curable {
         // Registering the behaviours for the Omen Sheep
         behaviours.put(0, new CountdownBehaviour(countdown));
         behaviours.put(1, new WanderBehaviour());
+        behaviours.put(2, new CountdownBehaviour(timeUntilProduce));
     }
 
     /**
@@ -100,6 +104,11 @@ public class OmenSheep extends Actor implements Curable {
             }
         }
 
+        // Allow producing if the OmenSheep can produce
+        if (canProduce(otherActor, map)) {
+            actions.add(new ProduceAction(this));
+        }
+
         return actions;
     }
     
@@ -122,4 +131,20 @@ public class OmenSheep extends Actor implements Curable {
         return user + " invokes the power of the " + item + " and Inheritrees emerge in a ring around " + this;
     }
 
+    @Override
+    public boolean canProduce(Actor otherActor, GameMap map) {
+        // If there's no turns left until produce, reset the produce timer and return true
+        if (timeUntilProduce.isExpired()) {
+            timeUntilProduce.resetCountdown();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String produce(Actor actor, GameMap map) {
+        // Produces an egg at the GameMap position of the OmenSheep
+        map.locationOf(this).addItem(new Egg());
+        return this + " has produced an egg!";
+    }
 }
