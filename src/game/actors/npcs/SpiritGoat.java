@@ -111,9 +111,14 @@ public class SpiritGoat extends Actor implements Curable, Producible {
         return "The " + item + " glows in " + user + "'s hand. Time rewinds for " + this + ", countdown reset to " + countdown.getCountdown();
     }
 
+    /**
+     * Checks if the {@link SpiritGoat} can produce.
+     *
+     * @param map The map containing the actor.
+     * @return A true or false value of if the actor can produce.
+     */
     @Override
     public boolean canProduce(GameMap map) {
-
         for (Exit exit : map.locationOf(this).getExits()) {
             Location surrounding = exit.getDestination();
             // Checks if the surrounding items are BLESSED_BY_GRACE
@@ -121,12 +126,17 @@ public class SpiritGoat extends Actor implements Curable, Producible {
                 return true;
             }
         }
-
         return false;
     }
 
+    /**
+     * Produces a {@link SpiritGoat} at a valid surrounding location of the original {@link SpiritGoat}.
+     *
+     * @param map The map the actor is on.
+     * @return A string describing the result of the action.
+     */
     @Override
-    public String produce(Actor actor, GameMap map) {
+    public String produce(GameMap map) {
         for (Exit exit : map.locationOf(this).getExits()) {
             Location surrounding = exit.getDestination();
             // Checks for a valid spawn location in the SpiritGoat's surroundings

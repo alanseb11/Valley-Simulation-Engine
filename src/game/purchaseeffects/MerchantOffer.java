@@ -21,7 +21,7 @@ public class MerchantOffer {
      *
      * @param item        The item to be purchased
      * @param price       The price of the item
-     * @param effect      The effect to be applied to the buyer
+     * @param effects     The effect[s] to be applied to the buyer
      */
     public MerchantOffer(Merchant merchant, Purchasable item, int price, List<PurchaseEffect> effects) {
         this.merchant = merchant;
@@ -69,6 +69,11 @@ public class MerchantOffer {
         return "\"Pleasure doing business,\" grins " + merchant + " as " + buyer + " receives the " + item + ".\nInstantly, " + effectString;
     }
 
+    /**
+     * Returns a string of the item.
+     *
+     * @return A string of the item.
+     */
     public String getItem() {
         return item.toString();
     }

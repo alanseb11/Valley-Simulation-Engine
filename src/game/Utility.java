@@ -1,5 +1,8 @@
 package game;
 
+/**
+ * Utility class where extra game-related utility methods are.
+ */
 public class Utility {
     /**
      * Utility method to determine if a word starts with a vowel.

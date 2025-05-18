@@ -29,7 +29,7 @@ public class InheritreeSeed extends Item implements Plantable {
     /**
      * This method creates a list of actions that can be performed with the Inheritree Seed.
      *
-     * @param actor The actor who wants to plant the seed
+     * @param owner The actor who wants to plant the seed
      * @return A list of actions that can be performed with the seed
      */
     @Override

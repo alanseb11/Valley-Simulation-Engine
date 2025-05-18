@@ -19,7 +19,6 @@ import edu.monash.fit2099.engine.actors.Behaviour;
  *
  */
 public class FollowBehaviour implements Behaviour {
-
     private final Actor target;
 
     /**
@@ -31,6 +30,13 @@ public class FollowBehaviour implements Behaviour {
         this.target = subject;
     }
 
+    /**
+     * Gets the action FollowBehaviour.
+     *
+     * @param actor the Actor acting
+     * @param map the GameMap containing the Actor
+     * @return A MoveActorAction to the correct destination
+     */
     @Override
     public Action getAction(Actor actor, GameMap map) {
         if(!map.contains(target) || !map.contains(actor))

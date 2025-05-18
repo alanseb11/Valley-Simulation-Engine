@@ -25,6 +25,13 @@ public class HealthCondition implements MonologueCondition {
         this.comparison = comparison;
     }
 
+    /**
+     * Tests the listener's health condition.
+     *
+     * @param listener The actor that is tested on.
+     * @param map The map where the actor is.
+     * @return Whether their health is within the healthThreshold.
+     */
     @Override
     public boolean test(Actor listener, GameMap map) {
         return comparison.compare(listener.getAttribute(BaseActorAttributes.HEALTH), healthThreshold);

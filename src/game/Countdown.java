@@ -17,7 +17,8 @@ public class Countdown {
     private Action action = new DoNothingAction();
 
     /**
-     * Constructs a {@code CountdownDecay} with the specified initial countdown value.
+     * Constructs a {@code CountdownDecay} with the specified initial countdown value,
+     * as well as the {@link Action} to be performed at the end of the countdown.
      * 
      * @param initial_countdown The initial countdown value
      */
@@ -80,9 +81,8 @@ public class Countdown {
 
     /**
      * Applies the countdown effect to the specified actor.
-     * 
      * This method decrements the countdown and prints a message indicating the actor's remaining turns
-     * before succumbing to the Crimson Rot.
+     * before an action occurs.
      * 
      * @param actor The actor to whom the countdown effect is applied
      */
@@ -94,8 +94,7 @@ public class Countdown {
 
     /**
      * Applies the countdown effect to the specified item.
-     *
-     * This method decrements the countdown and prints a message.
+     * This method decrements the countdown and prints a message indicating the remaining turns.
      *
      * @param item The item to which the countdown effect is applied
      */

@@ -26,7 +26,7 @@ public class ConditionalMonologue {
     /**
      * Checks if the condition is met for the given actor.
      *
-     * @param actor The actor to check the condition against
+     * @param listener The actor to check the condition against
      * @return true if the condition is met, false otherwise
      */
     public boolean isApplicableTo(Actor listener, GameMap map) {

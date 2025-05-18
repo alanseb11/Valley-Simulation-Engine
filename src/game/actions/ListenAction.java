@@ -15,7 +15,7 @@ public class ListenAction extends Action {
     /**
      * Constructor.
      *
-     * @param monologue The monologue to be spoken
+     * @param monologuer The monologue to be spoken
      */
     public ListenAction(Monologuer monologuer) {
         this.monologuer = monologuer;

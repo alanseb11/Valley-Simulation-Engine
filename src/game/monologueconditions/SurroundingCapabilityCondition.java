@@ -34,7 +34,14 @@ public class SurroundingCapabilityCondition implements MonologueCondition {
             .map(Exit::getDestination)
             .anyMatch(location -> hasCapabilityInLocation(location, status));
     }
-    
+
+    /**
+     * Checks if the surrounding ground, actors and items have a certain capability.
+     *
+     * @param location The location where we check.
+     * @param status The status effect/condition that must be met.
+     * @return Whether the condition is met.
+     */
     public static boolean hasCapabilityInLocation(Location location, Status status) {
         // Check if the ground has the specified capability
         if (location.getGround().hasCapability(status)) {

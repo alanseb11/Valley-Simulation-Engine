@@ -143,12 +143,11 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
     /**
      * Produces a {@link GoldenEgg} and places it on the current map location.
      *
-     * @param actor The beetle (this)
      * @param map   The current map
      * @return A message indicating the egg has been laid
      */
     @Override
-    public String produce(Actor actor, GameMap map) {
+    public String produce(GameMap map) {
         map.locationOf(this).addItem(new GoldenEgg());
         return this + " has laid a Golden Egg!";
     }
