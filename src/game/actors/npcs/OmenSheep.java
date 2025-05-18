@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.CountdownDecay;
+import game.Countdown;
 import game.actions.*;
 import game.behaviours.*;
 import game.capabilities.Status;
@@ -31,8 +31,8 @@ import java.util.Map;
  */
 public class OmenSheep extends Actor implements Curable, Producible {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
-    private CountdownDecay countdown = new CountdownDecay(15);
-    private CountdownDecay timeUntilProduce = new CountdownDecay(7);
+    private Countdown countdownDecay = new Countdown(15, new UnconsciousAction());
+    private Countdown timeUntilProduce = new Countdown(7, new ProduceAction(this));
 
     /**
      * Constructor.
@@ -44,9 +44,9 @@ public class OmenSheep extends Actor implements Curable, Producible {
         this.addCapability(Status.NON_HOSTILE_TO_ENEMY);
 
         // Registering the behaviours for the Omen Sheep
-        behaviours.put(0, new CountdownBehaviour(countdown));
-        behaviours.put(1, new WanderBehaviour());
-        behaviours.put(2, new CountdownBehaviour(timeUntilProduce));
+        behaviours.put(0, new CountdownBehaviour(countdownDecay));
+        behaviours.put(1, new CountdownBehaviour(timeUntilProduce));
+        behaviours.put(2, new WanderBehaviour());
     }
 
     /**
@@ -104,11 +104,6 @@ public class OmenSheep extends Actor implements Curable, Producible {
             }
         }
 
-        // Allow producing if the OmenSheep can produce
-        if (canProduce(otherActor, map)) {
-            actions.add(new ProduceAction(this));
-        }
-
         return actions;
     }
     
@@ -129,16 +124,6 @@ public class OmenSheep extends Actor implements Curable, Producible {
             tile.getGround().addCapability(Status.PLANTED);
         }
         return user + " invokes the power of the " + item + " and Inheritrees emerge in a ring around " + this;
-    }
-
-    @Override
-    public boolean canProduce(Actor otherActor, GameMap map) {
-        // If there's no turns left until produce, reset the produce timer and return true
-        if (timeUntilProduce.isExpired()) {
-            timeUntilProduce.resetCountdown();
-            return true;
-        }
-        return false;
     }
 
     @Override

@@ -9,7 +9,4 @@ public class Egg extends Item {
     public Egg() {
         super("Egg", '0', true);
     }
-
-
-
 }
