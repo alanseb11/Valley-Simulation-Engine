@@ -10,35 +10,30 @@ import game.actions.EatAction;
 import game.actors.npcs.GoldenBeetle;
 import game.capabilities.Status;
 import game.interfaces.Eatable;
+import game.monologueconditions.SurroundingCapabilityCondition;
 
 public class GoldenEgg extends Egg implements Eatable {
-
+    private GoldenBeetle hatched = new GoldenBeetle();
 
     public GoldenEgg() {
         super();
     }
 
     @Override
-    public void tick(Location currentLocation) {
-
-        //This checks whether the egg is still on the ground
-        if (!currentLocation.getItems().contains(this)) {
-            return;
-        }
-
-        if(nearCursedTile(currentLocation)) {
-            currentLocation.removeItem(this);
-            currentLocation.addActor(new GoldenBeetle());
-        }
+    public void tick(Location currentLocation, Actor actor) {
+        super.canHatch = false;
     }
 
-    public boolean nearCursedTile(Location location) {
-        for (Exit exit : location.getExits()) {
-            if (exit.getDestination().getGround().hasCapability(Status.CURSED)) {
-                return true;
+    @Override
+    public void tick(Location currentLocation) {
+        if (canHatch && !currentLocation.containsAnActor()) {
+            for (Exit _ : currentLocation.getExits()) {
+                if (SurroundingCapabilityCondition.hasCapabilityInLocation(currentLocation, Status.CURSED)) {
+                    this.hatch(currentLocation);
+                    return;
+                }
             }
         }
-        return false;
     }
 
     @Override
@@ -49,11 +44,8 @@ public class GoldenEgg extends Egg implements Eatable {
     }
 
     @Override
-    public ActionList allowableActions(Actor actor, GameMap map) {
-        ActionList actions = new ActionList();
-        if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            actions.add(new EatAction(this));
-        }
-        return actions;
+    public void hatch(Location location) {
+        super.hatch(location);
+        location.addActor(hatched);
     }
 }

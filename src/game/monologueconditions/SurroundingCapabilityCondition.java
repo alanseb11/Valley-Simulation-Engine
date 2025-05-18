@@ -32,10 +32,10 @@ public class SurroundingCapabilityCondition implements MonologueCondition {
     public boolean test(Actor listener, GameMap map) {
         return map.locationOf(listener).getExits().stream()
             .map(Exit::getDestination)
-            .anyMatch(this::hasCapabilityInLocation);
+            .anyMatch(location -> hasCapabilityInLocation(location, status));
     }
     
-    private boolean hasCapabilityInLocation(Location location) {
+    public static boolean hasCapabilityInLocation(Location location, Status status) {
         // Check if the ground has the specified capability
         if (location.getGround().hasCapability(status)) {
             return true;
