@@ -24,10 +24,19 @@ import game.items.GoldenEgg;
 
 /**
  * Represents a Golden Beetle NPC in the game world.
- * <p>
- * Golden Beetles lay a {@link GoldenEgg} every five turns, can wander the map, and follow nearby
- * followable actors such as the Player. They are also edible by the Player, granting healing and runes.
+ *
+ * <p>Golden Beetles:
+ * <ul>
+ *     <li>Have 25 hit points</li>
+ *     <li>Lay a {@link GoldenEgg} every 5 turns using a {@link Countdown} system</li>
+ *     <li>Wander the map by default</li>
+ *     <li>Follow nearby actors with {@link Status#FOLLOWABLE}</li>
+ *     <li>Can be consumed by the Player to restore health and receive currency</li>
+ *     <li>Can be attacked like other NPCs</li>
+ * </ul>
  * </p>
+ *
+ * This class implements {@link Eatable} and {@link Producible} to enable custom logic for consumption and egg production.
  */
 public class GoldenBeetle extends Actor implements Eatable, Producible {
 
@@ -35,7 +44,10 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
     private final Countdown timeUntilLay = new Countdown(5, new ProduceAction(this));
 
     /**
-     * Constructs a new Golden Beetle with 25 HP and assigns its initial behaviours.
+     * Constructs a Golden Beetle with 25 HP.
+     *
+     * Adds a {@link CountdownBehaviour} to trigger egg-laying every 5 turns,
+     * and a default {@link WanderBehaviour} for movement.
      */
     public GoldenBeetle() {
         super("Golden Beetle", 'b', 25);
@@ -44,17 +56,20 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
     }
 
     /**
-     * Defines the Golden Beetle's turn-based behavior.
-     * <ul>
-     *     <li>Searches for a nearby followable actor and initiates follow behaviour.</li>
-     *     <li>Executes the highest-priority available behaviour action.</li>
-     * </ul>
+     * Executes one turn of the Golden Beetle's behaviour.
      *
-     * @param actions    Available actions for this turn.
-     * @param lastAction Last action performed by this actor.
-     * @param map        The current game map.
-     * @param display    Display to show any output.
-     * @return The action to perform.
+     * <p>Each turn:
+     * <ul>
+     *     <li>Scans adjacent tiles for {@link Status#FOLLOWABLE} actors and follows them</li>
+     *     <li>Executes the first applicable behaviour from the priority map</li>
+     * </ul>
+     * </p>
+     *
+     * @param actions    The list of possible actions this turn
+     * @param lastAction The last action taken
+     * @param map        The current game map
+     * @param display    Display for text output
+     * @return An action to perform this turn, or null if none available
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
@@ -78,16 +93,19 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
     }
 
     /**
-     * Defines the behavior when the Golden Beetle is consumed by another actor.
-     * <ul>
-     *     <li>Restores 15 HP to the consumer.</li>
-     *     <li>Adds 1000 runes to the consumer if they are the Player.</li>
-     *     <li>Removes the beetle from the game map.</li>
-     * </ul>
+     * Called when this beetle is consumed by another actor.
      *
-     * @param actor The actor consuming the beetle.
-     * @param map   The current game map.
-     * @return A description of the result of the eating action.
+     * <p>Effects on the consumer:
+     * <ul>
+     *     <li>Restores 15 HP</li>
+     *     <li>Grants 1000 runes if the actor has {@link Status#PLAYER}</li>
+     * </ul>
+     * The beetle is removed from the map after consumption.
+     * </p>
+     *
+     * @param actor The consuming actor
+     * @param map   The current game map
+     * @return Description of the consumption event
      */
     @Override
     public String eatenBy(Actor actor, GameMap map) {
@@ -98,13 +116,19 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
     }
 
     /**
-     * Determines what actions other actors can perform on the Golden Beetle.
-     * Currently allows the Player to eat it.
+     * Returns the actions available to other actors when interacting with this beetle.
      *
-     * @param otherActor The actor interacting with this beetle.
-     * @param direction  The direction of the beetle relative to the actor.
-     * @param map        The current game map.
-     * @return A list of allowable actions.
+     * <p>Currently allows:
+     * <ul>
+     *     <li>{@link EatAction} if the actor is hostile</li>
+     *     <li>{@link AttackAction} if the actor is hostile</li>
+     * </ul>
+     * </p>
+     *
+     * @param otherActor The interacting actor
+     * @param direction  Direction of the beetle relative to the actor
+     * @param map        The game map
+     * @return A list of allowable actions
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
@@ -117,7 +141,11 @@ public class GoldenBeetle extends Actor implements Eatable, Producible {
     }
 
     /**
-     * Spawns a Golden Egg on the beetle's location.
+     * Produces a {@link GoldenEgg} and places it on the current map location.
+     *
+     * @param actor The beetle (this)
+     * @param map   The current map
+     * @return A message indicating the egg has been laid
      */
     @Override
     public String produce(Actor actor, GameMap map) {
