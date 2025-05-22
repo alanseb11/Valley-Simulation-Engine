@@ -21,7 +21,7 @@ public class OmenSheepEgg extends Egg {
      * Constructor.
      */
     public OmenSheepEgg() {
-        super("Egg", 'e', true, new OmenSheep());
+        super("Egg", '0', true, new OmenSheep());
     }
 
     /**
