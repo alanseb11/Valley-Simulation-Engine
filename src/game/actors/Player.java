@@ -54,6 +54,9 @@ public class Player extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        display.println("Current time: " + timeManager.getCurrentTime());
+        timeManager.tick();
+        
         // Check if the Player is conscious
         if (!this.isConscious()) {
             // Oh no! "YOU DIED" message
@@ -67,8 +70,6 @@ public class Player extends Actor {
             }
             return new UnconsciousAction();
         }
-
-        timeManager.tick();
 
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)

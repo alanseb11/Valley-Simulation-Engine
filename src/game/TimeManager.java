@@ -3,8 +3,6 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.monash.fit2099.engine.displays.Display;
-
 public class TimeManager {
    private List<TimeOfDay> dayCycle = new ArrayList<>();
     private int currentTimeIndex = 0;
@@ -23,7 +21,6 @@ public class TimeManager {
 
     public void tick() {
         TimeOfDay currentTime = getCurrentTime();
-        new Display().println("Current time: " + currentTime);
         currentTime.tick();
 
         // Check if the current time has passed

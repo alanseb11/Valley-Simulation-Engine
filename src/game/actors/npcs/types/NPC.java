@@ -25,6 +25,10 @@ public abstract class NPC extends Actor {
      * The value is the Behaviour itself.
      */
     protected Map<Integer, Behaviour> behaviours = new HashMap<>();
+
+    /**
+     * A TimeManager instance to manage time-related functionalities for the NPC.
+     */
     protected final TimeManager timeManager = new TimeManager();
 
     /**
@@ -52,6 +56,8 @@ public abstract class NPC extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        timeManager.tick();
+        
         // If the NPC is not conscious, it cannot perform any actions
         if (!this.isConscious()) {
             return new UnconsciousAction();
