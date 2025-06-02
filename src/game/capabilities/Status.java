@@ -13,6 +13,5 @@ public enum Status {
     FERTILE,
     CURATIVE,
     BLESSED_BY_GRACE,
-    PLAYER,
     FOLLOWABLE
 }

@@ -53,7 +53,6 @@ public class MerchantOffer {
         // Item-specific effect
         item.uponPurchase(buyer, map);
 
-        // Remove the item from the merchant's inventory? Or remove quantity?
         // Add the item to the buyer's inventory
         buyer.addItemToInventory((Item) item);
 
