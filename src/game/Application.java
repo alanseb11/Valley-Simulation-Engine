@@ -9,8 +9,9 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.actors.Player;
 import game.actors.npcs.*;
+import game.behaviours.RandomBehaviourType;
 import game.grounds.*;
-import game.items.*;
+import game.items.Talisman;
 import game.items.plants.BloodroseSeed;
 import game.items.plants.InheritreeSeed;
 import game.utilities.FancyMessage;
@@ -93,13 +94,22 @@ public class Application {
         limveldMap.at(3, 3).setGround(limveldCircle);
 
         // Game setup
-//        limgraveMap.at(24, 11).addItem(new Talisman());
-//        limgraveMap.at(23, 14).addActor(new OmenSheep());
-//        limgraveMap.at(21,14).addActor(new SpiritGoat());
-//        limgraveMap.at(24, 10).addActor(new Sellen());
-//        limgraveMap.at(22,10).addActor(new Kale());
-//        limgraveMap.at(22, 14).addActor(new Guts());
-//        limgraveMap.at(23,11).addActor(new GoldenBeetle());
+        limgraveMap.at(24, 11).addItem(new Talisman());
+        limgraveMap.at(23, 14).addActor(new OmenSheep());
+        limgraveMap.at(1,3).addActor(new SpiritGoat());
+        limgraveMap.at(29, 8).addActor(new Sellen());
+        limgraveMap.at(9,10).addActor(new Kale());
+        limgraveMap.at(26, 3).addActor(new Guts());
+        limgraveMap.at(15,11).addActor(new GoldenBeetle());
+
+        // Testing for random behaviours
+        SpiritGoat randomGoat = new SpiritGoat();
+        randomGoat.setBehaviour(new RandomBehaviourType());
+
+        SpiritGoat normalGoat = new SpiritGoat();
+
+        limgraveMap.at(15,3).addActor(randomGoat);
+        limgraveMap.at(15,4).addActor(normalGoat);
 
         world.run();
     }
