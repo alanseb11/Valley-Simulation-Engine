@@ -11,6 +11,8 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.UnconsciousAction;
+import game.behaviours.BehaviourType;
+import game.behaviours.PrioritisedBehaviourType;
 import game.behaviours.WanderBehaviour;
 
 /**
@@ -26,6 +28,11 @@ public abstract class NPC extends Actor {
     protected Map<Integer, Behaviour> behaviours = new HashMap<>();
 
     /**
+     * The strategy used to select behaviors.
+     */
+    protected BehaviourType behaviourType;
+
+    /**
      * Constructor for NPC.
      *
      * @param name         The name of the NPC.
@@ -35,8 +42,20 @@ public abstract class NPC extends Actor {
     public NPC(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         
+        // Default to prioritized behavior strategy
+        this.behaviourType = new PrioritisedBehaviourType();
+        
         // Registering the behaviours for the NPC
         behaviours.put(99, new WanderBehaviour());
+    }
+
+    /**
+     * Sets the behavior selection strategy for this NPC.
+     *
+     * @param strategy The strategy to use for selecting behaviors
+     */
+    public void setBehaviour(BehaviourType strategy) {
+        this.behaviourType = strategy;
     }
 
     /**
@@ -55,13 +74,12 @@ public abstract class NPC extends Actor {
             return new UnconsciousAction();
         }
 
-        // Perform the behaviours
-        for (Behaviour behaviour : behaviours.values()) {
-            Action action = behaviour.getAction(this, map);
-            if (action != null) return action;
+        // Use the current strategy to select an action
+        Action action = behaviourType.selectAction(behaviours, this, map);
+        if (action != null) {
+            return action;
         }
 
         return new DoNothingAction();
     }
-
 }
