@@ -12,19 +12,16 @@ import game.purchaseeffects.MerchantOffer;
 public class PurchaseAction extends Action {
     private MerchantOffer offer;
     private Merchant merchant;
-    private Actor buyer;
 
     /**
      * Constructor for the PurchaseAction.
      *
      * @param offer The offer to be purchased
      * @param merchant The Merchant selling the offer
-     * @param buyer The Actor that is buying the offer
      */
-    public PurchaseAction(MerchantOffer offer, Merchant merchant, Actor buyer) {
+    public PurchaseAction(MerchantOffer offer, Merchant merchant) {
         this.offer = offer;
         this.merchant = merchant;
-        this.buyer = buyer;
     }
 
     /**
@@ -36,7 +33,7 @@ public class PurchaseAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        return offer.completePurchase(buyer, map);
+        return offer.completePurchase(actor, map);
     }
 
     /**
