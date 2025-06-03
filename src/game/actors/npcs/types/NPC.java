@@ -25,7 +25,11 @@ public abstract class NPC extends Actor {
      * The value is the Behaviour itself.
      */
     protected Map<Integer, Behaviour> behaviours = new HashMap<>();
-    private final TimeManager timeManager = new TimeManager();
+    
+    /**
+     * The TimeManager instance that manages the time-related actions for the NPC.
+     */
+    protected final TimeManager timeManager = new TimeManager();
 
     /**
      * Constructor for NPC.

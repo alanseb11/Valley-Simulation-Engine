@@ -18,5 +18,9 @@ public class Morning extends TimeOfDay {
         if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actor.removeCapability(Ability.PURCHASE);
         }
+
+        if (actor.hasCapability(Ability.ATTACK)) {
+            actor.removeCapability(Status.AGGRESSIVE);
+        }
     }
 }

@@ -13,5 +13,6 @@ public enum Status {
     FERTILE,
     CURATIVE,
     BLESSED_BY_GRACE,
-    FOLLOWABLE
+    FOLLOWABLE,
+    AGGRESSIVE
 }
