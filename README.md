@@ -11,18 +11,18 @@
 ```
 ## REQ3: The Turning of the World
 In the Lands Between, time is not merely a backdrop - it breathes, it judges, and it punishes. Each phase of the day brings shifting fortunes and lurking dread. The Day/Night Cycle shapes the rhythms of all who dwell in the Valley of Inheritree.
----
+
 ### Morning - *The Pale Grace of Dawn*
-As the mist breaks and dew clings to the soil, a strange vigor seeps into the Farmer's bones. In this fleeting hour, effort feels lighter, as if the world itself lends its strength.
+As the mist breaks and dew clings to the soil, a strange vigour seeps into the Farmer's bones. In this fleeting hour, effort feels lighter, as if the world itself lends its strength.
 **Effect:** 
 All stamina-consuming actions cost **25% less stamina** for the Farmer.
----
+
 ### Afternoon - *The Hour of Trade*
 The sun climbs highest and the clamour of coin echoes across villages and ruins alike. It is only in this sacred window that merchants unroll their wares, eyes gleaming with promises.
 **Effect:** 
 **Merchants only accept trades** during this time.  
 All purchasing attempts outside this window are met with silence... or worse.
----
+
 ### Night - *Where Enemies Thrive*
 Two rounds of darkness stretch across the land. Candles flicker, shadows stir. And Guts, the cursed hound of vengeance, thrives in it.
 **Effect:**
