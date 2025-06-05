@@ -1,8 +1,6 @@
-import game.actors.npcs.types.NPC;
+package game.actors.npcs.boss;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import game.actors.npcs.types.NPC;
 
 public class BedOfChaos extends NPC {
     private int hp = 1000;
