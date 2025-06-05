@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.UnconsciousAction;
+import game.capabilities.Ability;
 import game.capabilities.Status;
 import game.time.TimeManager;
 import game.utilities.FancyMessage;
@@ -22,6 +23,7 @@ import game.weapons.BareFist;
  */
 public class Player extends Actor {
     private final TimeManager timeManager = new TimeManager();
+    
     /**
      * Constructor.
      *
@@ -32,10 +34,11 @@ public class Player extends Actor {
      */
     public Player(String name, char displayChar, int hitPoints, int stamina) {
         super(name, displayChar, hitPoints);
+        this.setIntrinsicWeapon(new BareFist(damageMultiplier));
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(stamina));
         this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addCapability(Status.FOLLOWABLE);
-        this.setIntrinsicWeapon(new BareFist());
+        this.addCapability(Ability.ATTACK);
     }
 
     /**
@@ -102,4 +105,7 @@ public class Player extends Actor {
         );
     }
 
+    public float getDamageMultiplier() {
+        return this.damageMultiplier;
+    }
 }

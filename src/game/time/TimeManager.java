@@ -14,6 +14,10 @@ public class TimeManager {
     private List<TimeOfDay> dayCycle = new ArrayList<>();
     private int currentTimeIndex = 0;
 
+    /**
+     * Constructor for TimeManager.
+     * Initialises the day cycle with different times of day.
+     */
     public TimeManager() {
         // Initialise the day cycle with different times of day
         dayCycle.add(new Morning());
@@ -22,10 +26,21 @@ public class TimeManager {
         this.currentTimeIndex = 0;
     }
 
+    /**
+     * Gets the current time of day.
+     *
+     * @return the current TimeOfDay object
+     */
     public TimeOfDay getCurrentTime() {
         return dayCycle.get(currentTimeIndex);
     }
 
+    /**
+     * Manages the ticking of time in the game.
+     * 
+     * @param actor     the actor to apply the effect to
+     * @param gameMap   the game map where the effect is applied
+     */
     public void tick(Actor actor, GameMap gameMap) {
         TimeOfDay currentTime = getCurrentTime();
         currentTime.applyEffect(actor, gameMap); // Apply effects of the current time of day

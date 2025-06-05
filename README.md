@@ -35,10 +35,12 @@ The sun climbs highest and the clamour of coin echoes across villages and ruins 
 Two rounds of darkness stretch across the land. Candles flicker, shadows stir. And Guts, the cursed hound of vengeance, thrives in it.
 
 **Effect:**  
-- At **Night**, certain enemies become **more aggressive**.
+- At **Night**, the Farmer and certain enemies become **more aggressive**.
 - **Guts** deals:
-  - **+30% damage** when on **Blighted ground** or when **peaceful creatures are nearby**
+  - **+30% damage** when on or surrounded by **Blighted ground**
   - **+15% damage** elsewhere
+- **Farmer** can:
+  - Attack Guts with intrinsic weapon
 
 ---
 

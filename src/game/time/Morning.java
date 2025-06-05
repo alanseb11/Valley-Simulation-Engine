@@ -1,10 +1,16 @@
 package game.time;
 
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Ability;
 import game.capabilities.Status;
+import game.monologueconditions.SurroundingCapabilityCondition;
 
+/**
+ * Represents the morning time of day in the game.
+ * Morning lasts for 1 turn and applies specific effects to actors.
+ */
 public class Morning extends TimeOfDay {
     /**
      * Constructor for Morning time of day.
@@ -14,6 +20,14 @@ public class Morning extends TimeOfDay {
         super("Morning", new Countdown(1));
     }
 
+    /**
+     * Applies the effects of morning to the specified actor and game map.
+     * In the morning, actors that are hostile to enemies are buffed,
+     * and aggressive actors lose their aggressive capability.
+     *
+     * @param actor the actor to apply the effect to
+     * @param map   the game map where the effect is applied
+     */
     public void applyEffect(Actor actor, GameMap map) {
         if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actor.addCapability(Status.BUFFED);
