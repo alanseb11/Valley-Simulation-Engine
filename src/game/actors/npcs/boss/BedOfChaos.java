@@ -19,7 +19,6 @@ import java.util.function.Predicate;
 public class BedOfChaos extends NPC implements Growable {
     private int hp = 1000;
     private final int baseDamage = 25;
-    private final double accuracy = 0.75;
     private final List<DamageContributor> parts = new ArrayList<>();
     private final Random random = new Random();
 
@@ -39,21 +38,10 @@ public class BedOfChaos extends NPC implements Growable {
         return baseDamage;
     }
 
-    public double getAccuracy() {
-        return accuracy;
-    }
-
     public void increaseHp(int amount) {
         hp += amount;
     }
 
-    public List<DamageContributor> getParts() {
-        return parts;
-    }
-
-    public void addPart(DamageContributor part) {
-        parts.add(part);
-    }
 
     public int getTotalAttackDamage() {
         int totalDamage = 0;

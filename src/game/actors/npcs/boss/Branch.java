@@ -26,7 +26,7 @@ public class Branch extends BossPart {
                 Branch newBranch = new Branch();
                 currentBranch.subParts.add(newBranch);
                 System.out.println("Branch grows a new Branch!");
-                currentBranch = newBranch;  // Keep growing from the new branch
+                currentBranch = newBranch;
             } else {
                 currentBranch.subParts.add(new Leaf());
                 boss.increaseHp(5);
