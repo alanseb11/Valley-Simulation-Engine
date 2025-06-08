@@ -1,6 +1,8 @@
 package game.interfaces;
 
+import edu.monash.fit2099.engine.positions.GameMap;
+
 public interface Growable {
     void grow();
-    boolean canGrow();
+    boolean canGrow(GameMap map);
 }

@@ -1,6 +1,8 @@
 package game.actors.npcs.boss;
 
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.Exit;
+import edu.monash.fit2099.engine.positions.GameMap;
 import game.actors.npcs.types.NPC;
 import game.behaviours.GrowBehaviour;
 import game.capabilities.Status;
@@ -23,7 +25,7 @@ public class BedOfChaos extends NPC implements Growable {
 
     public BedOfChaos() {
         super("Bed of Chaos", 'T', 1000);
-
+        behaviours.clear();
         setIntrinsicWeapon(new BedOfChaosIntrinsicWeapon(this));
 
         Predicate<Actor> isPlayer = actor -> actor.hasCapability(Status.PLAYER);
@@ -70,13 +72,20 @@ public class BedOfChaos extends NPC implements Growable {
     }
 
     @Override
-    public boolean canGrow() {
-        return true;
+    public boolean canGrow(GameMap map) {
+        // Get the map containing BedOfChaos
+        for (Exit exit : map.locationOf(this).getExits()) {
+            Actor target = exit.getDestination().getActor();
+            if (target != null && target.hasCapability(Status.PLAYER)) {
+                return false;  // Player nearby! Can't grow.
+            }
+        }
+        return true;  // No player nearby.
     }
 
     @Override
     public String toString() {
-        return String.format("Bed of Chaos [HP: %d, Accuracy: %.2f]", hp, parts.size());
+        return String.format("Bed of Chaos [HP: %d, Parts: %d]", hp, parts.size());
     }
 
 
