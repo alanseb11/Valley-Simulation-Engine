@@ -34,6 +34,7 @@ public class Kale extends MonologuingNPC implements Merchant {
      */
     public Kale() {
         super("Kale", 'k', 200);
+        this.addCapability(Status.MERCHANT);
 
         // Initialise monologue pool
         monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "A merchant's life is a lonely one. But the roads... they whisper secrets to those who listen."));

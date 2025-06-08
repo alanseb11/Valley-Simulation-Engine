@@ -5,12 +5,16 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import game.actions.EatAction;
+import game.actions.SellAction;
 import game.capabilities.Status;
 import game.interfaces.Eatable;
+import game.interfaces.Sellable;
 
-public class Lumenfruit extends Item implements Eatable {
+public class Lumenfruit extends Item implements Eatable, Sellable {
     /***
      * Constructor.
      */
@@ -31,6 +35,13 @@ public class Lumenfruit extends Item implements Eatable {
         if (owner.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new EatAction(this));
         }
+        // If a surrounding actor is a merchant, then offer to sell the Lumenfruit
+        for (Exit exit: map.locationOf(owner).getExits()) {
+            Location surroundings = exit.getDestination();
+            if (surroundings.containsAnActor() && surroundings.getActor().hasCapability(Status.MERCHANT)) {
+                actions.add(new SellAction(this, surroundings.getActor()));
+            }
+        }
         return actions;
     }
 
@@ -40,5 +51,16 @@ public class Lumenfruit extends Item implements Eatable {
         actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, 10);
         actor.removeItemFromInventory(this);
         return actor + " consumes the " + this + " and restores 30 health and 10 stamina!";
+    }
+
+    @Override
+    public String sell(Actor actor, Actor merchant) {
+        if (merchant.getBalance() >= 50) {
+            actor.addBalance(50);
+            merchant.deductBalance(50);
+            return actor + " has sold the " + this + " to the " + merchant + " for 50 runes.";
+        } else {
+            return merchant + " does not have enough runes to buy the " + this;
+        }
     }
 }

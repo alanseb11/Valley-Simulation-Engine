@@ -32,6 +32,7 @@ public class Sellen extends MonologuingNPC implements Merchant {
      */
     public Sellen() {
         super("Sellen", 's', 150);
+        this.addCapability(Status.MERCHANT);
 
         // Initialise monologue pool
         monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "The academy casts out those it fears. Yet knowledge, like the stars, cannot be bound forever."));
