@@ -1,4 +1,7 @@
 package game.actors.npcs.boss;
 
-public class BossPart {
+import game.interfaces.DamageContributor;
+
+public abstract class BossPart implements DamageContributor {
+
 }
