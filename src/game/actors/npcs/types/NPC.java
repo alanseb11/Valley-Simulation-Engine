@@ -14,6 +14,7 @@ import game.actions.UnconsciousAction;
 import game.behaviours.BehaviourType;
 import game.behaviours.PrioritisedBehaviourType;
 import game.behaviours.WanderBehaviour;
+import game.time.TimeManager;
 
 /**
  * Abstract class representing a NPC in the game.
@@ -26,6 +27,11 @@ public abstract class NPC extends Actor {
      * The value is the Behaviour itself.
      */
     protected Map<Integer, Behaviour> behaviours = new HashMap<>();
+    
+    /**
+     * The TimeManager instance that manages the time-related actions for the NPC.
+     */
+    protected final TimeManager timeManager = new TimeManager();
 
     /**
      * The strategy used to select behaviors.
@@ -69,6 +75,8 @@ public abstract class NPC extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        timeManager.tick(this, map);
+        
         // If the NPC is not conscious, it cannot perform any actions
         if (!this.isConscious()) {
             return new UnconsciousAction();

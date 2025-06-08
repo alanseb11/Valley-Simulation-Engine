@@ -63,7 +63,7 @@ public class Blight extends Ground implements Curable {
     @Override
     public String beCuredBy(Item item, Actor user, GameMap map) {
         // Check if the actor has sufficient stamina
-        if (user.getAttribute(BaseActorAttributes.STAMINA) < 50) {
+        if (user.getAttribute(BaseActorAttributes.STAMINA) < getStaminaCost(user)) {
             return user + " tries to use the " + item + " but not enough strength flows to purify the " + this;
         }
 
@@ -71,10 +71,18 @@ public class Blight extends Ground implements Curable {
         map.locationOf(user).setGround(new Soil());
 
         // Drain stamina from the user
-        user.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, 50);
+        user.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, getStaminaCost(user));
 
         // Return a success message
         return user + " channels restorative energy through the " + item + ", purifying the " + this + " back to fertile soil";
+    }
+
+    @Override
+    public int getStaminaCost(Actor actor) {
+        if (actor.hasCapability(Status.BUFFED)) {
+            return Math.round(50 * 0.75f); // 25% less stamina cost if buffed
+        }
+        return 50; // Default stamina cost for curing the blight
     }
 
 }

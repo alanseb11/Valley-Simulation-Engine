@@ -8,7 +8,6 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Countdown;
 import game.actions.EatAction;
 import game.actions.ProduceAction;
 import game.actors.npcs.types.AttackableNPC;
@@ -19,6 +18,7 @@ import game.behaviours.CountdownBehaviour;
 import game.interfaces.Eatable;
 import game.interfaces.Producible;
 import game.items.eggs.GoldenEgg;
+import game.time.Countdown;
 
 /**
  * Represents a Golden Beetle NPC in the game world.

@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.capabilities.Status;
 import game.interfaces.Curable;
 
 /**
@@ -31,7 +32,12 @@ public class CureAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        return target.beCuredBy(item, actor, map);
+        String msg = target.beCuredBy(item, actor, map);
+
+        if (target.getStaminaCost(actor) > 0 && actor.hasCapability(Status.BUFFED)) {
+            return msg + " and spending less stamina than usual";
+        }
+        return msg;
     }
 
     /**

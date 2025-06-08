@@ -10,16 +10,42 @@
 .JMMmmmmMMM .JMMmmmmMMM .JMMmmmdP' .JMMmmmmMMM .JML.    YM         .JMML.    .JMML.  .JMML..JMML..JML.    YM   `"bmmmdPY  
 ```
 
-2. A day/night system that consists of morning/afternoon/evening/night. Each time of day has different effects on the world. For example, at night, certain enemies are more aggressive, dealing greater damage to the farmer.
+## REQ3: The Turning of the World
 
-Morning (1 round) -> performing any action costs the Farmer less stamina?
+> In the Lands Between, time is not merely a backdrop - it breathes, it judges, and it punishes. Each phase of the day brings shifting fortunes and lurking dread. The Day/Night Cycle shapes the rhythms of all who dwell in the Valley of Inheritree.
 
-Afternoon (1 round) -> merchant offers available only during this period
+### Morning - *The Pale Grace of Dawn*
+As the mist breaks and dew clings to the soil, a strange vigour seeps into the Farmer's bones. In this fleeting hour, effort feels lighter, as if the world itself lends its strength.
 
-Night (2 round) -> certain enemies are more aggressive
+**Effect:**  
+- All stamina-consuming actions cost **25% less stamina** for the Farmer.
 
-4. Realistic farming system. For instance, plants need to be watered, grounds can be shovelled, etc.
+---
 
+### Afternoon - *The Hour of Trade*
+The sun climbs highest and the clamour of coin echoes across villages and ruins alike. It is only in this sacred window that merchants unroll their wares, eyes gleaming with promises.
+
+**Effect:**  
+- **Merchants only accept trades** during this time.  
+- All purchasing attempts outside this window are met with silence... or worse.
+
+---
+
+### Night - *Where Enemies Thrive*
+Two rounds of darkness stretch across the land. Candles flicker, shadows stir. And Guts, the cursed hound of vengeance, thrives in it.
+
+**Effect:**  
+- At **Night**, the Farmer and certain enemies become **more aggressive**.
+- **Guts** deals:
+  - **+30% damage** when on or surrounded by **Blighted ground**
+  - **+15% damage** elsewhere
+- **Farmer** can:
+  - Attack Guts with intrinsic weapon
+
+---
+
+## REQ4: Realistic Farming System
+For instance, plants need to be watered, grounds can be shovelled, etc.
 Seed A -> Crop A
 once planted on soil, grow after X turns on its own. If watered Y times before it blooms into crop form, then it will produce twice the amount
 

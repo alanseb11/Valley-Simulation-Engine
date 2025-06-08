@@ -26,4 +26,12 @@ public interface Curable {
      */
     String beCuredBy(Item item, Actor user, GameMap map);
 
+    /**
+     * This method returns the stamina cost for curing the object.
+     * 
+     * @param actor
+     * @return the stamina cost for curing the object
+     */
+    int getStaminaCost(Actor actor);
+
 }

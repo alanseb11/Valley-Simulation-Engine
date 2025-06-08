@@ -5,8 +5,8 @@ import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Countdown;
 import game.actors.npcs.OmenSheep;
+import game.time.Countdown;
 
 /**
  * Represents an Omen Sheep Egg item in the game, laid by the {@link OmenSheep}.

@@ -72,7 +72,7 @@ public class Sellen extends MonologuingNPC implements Merchant {
         
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             for (MerchantOffer offer : offerings) {
-                actions.add(new PurchaseAction(offer, this, otherActor));
+                actions.add(new PurchaseAction(offer, this));
             }
         }
 

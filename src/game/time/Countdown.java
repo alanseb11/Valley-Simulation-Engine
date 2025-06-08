@@ -1,4 +1,4 @@
-package game;
+package game.time;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
@@ -40,7 +40,7 @@ public class Countdown {
     /**
      * Decrements the countdown value by 1.
      */
-    private void decrement() {
+    public void decrement() {
         countdown--;
     }
 

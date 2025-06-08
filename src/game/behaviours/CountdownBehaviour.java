@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.Countdown;
+import game.time.Countdown;
 
 /**
  * A behaviour that applies a countdown effect to an actor.

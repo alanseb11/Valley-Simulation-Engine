@@ -6,7 +6,6 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Countdown;
 import game.actions.*;
 import game.actors.npcs.types.AttackableNPC;
 import game.behaviours.*;
@@ -15,6 +14,7 @@ import game.grounds.Inheritree;
 import game.interfaces.Curable;
 import game.interfaces.Producible;
 import game.items.eggs.OmenSheepEgg;
+import game.time.Countdown;
 
 /**
  * A non-player character (NPC) representing an Omen Sheep.
@@ -80,6 +80,17 @@ public class OmenSheep extends AttackableNPC implements Curable, Producible {
             tile.getGround().addCapability(Status.PLANTED);
         }
         return user + " invokes the power of the " + item + " and Inheritrees emerge in a ring around " + this;
+    }
+
+    /**
+     * Returns the stamina cost for curing the Omen Sheep.
+     *
+     * @param actor The actor performing the curing action
+     * @return The stamina cost for curing the Omen Sheep
+     */
+    @Override
+    public int getStaminaCost(Actor actor) {
+        return 0; // Omen Sheep does not require stamina to cure
     }
 
     /**

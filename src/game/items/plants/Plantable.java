@@ -59,7 +59,7 @@ public abstract class Plantable extends Item {
      * @return true if the actor has enough stamina to plant the seed, false otherwise
      */
     public boolean isPlantableBy(Actor actor) {
-        return actor.getAttribute(BaseActorAttributes.STAMINA) >= getStaminaCost();
+        return actor.getAttribute(BaseActorAttributes.STAMINA) >= getStaminaCost(actor);
     }
 
     /**
@@ -74,9 +74,14 @@ public abstract class Plantable extends Item {
     /**
      * Returns the stamina cost required to plant the item.
      *
+     * @param actor the actor performing the planting action
      * @return the stamina cost
      */
-    public int getStaminaCost() {
+    public int getStaminaCost(Actor actor) {
+        if (actor.hasCapability(Status.BUFFED)) {
+            return Math.round(staminaCost * 0.75f); // 25% less stamina cost if buffed
+        }
+        // Return the original stamina cost if not buffed
         return staminaCost;
     }
 
@@ -95,7 +100,7 @@ public abstract class Plantable extends Item {
         bloom(actorLocation);
 
         // Deduct stamina from the actor
-        actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, staminaCost);
+        actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, getStaminaCost(actor));
     }
 
     /**

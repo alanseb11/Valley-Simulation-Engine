@@ -23,6 +23,7 @@ public class MerchantOffer {
     /**
      * Constructor.
      *
+     * @param merchant    The merchant making the offer
      * @param item        The item to be purchased
      * @param price       The price of the item
      * @param effects     The effect[s] to be applied to the buyer
@@ -53,7 +54,6 @@ public class MerchantOffer {
         // Item-specific effect
         item.uponPurchase(buyer, map);
 
-        // Remove the item from the merchant's inventory? Or remove quantity?
         // Add the item to the buyer's inventory
         buyer.addItemToInventory((Item) item);
 

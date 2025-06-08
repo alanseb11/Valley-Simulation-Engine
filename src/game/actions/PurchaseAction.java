@@ -3,6 +3,7 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.capabilities.Ability;
 import game.interfaces.Merchant;
 import game.purchaseeffects.MerchantOffer;
 
@@ -12,19 +13,16 @@ import game.purchaseeffects.MerchantOffer;
 public class PurchaseAction extends Action {
     private MerchantOffer offer;
     private Merchant merchant;
-    private Actor buyer;
 
     /**
      * Constructor for the PurchaseAction.
      *
      * @param offer The offer to be purchased
      * @param merchant The Merchant selling the offer
-     * @param buyer The Actor that is buying the offer
      */
-    public PurchaseAction(MerchantOffer offer, Merchant merchant, Actor buyer) {
+    public PurchaseAction(MerchantOffer offer, Merchant merchant) {
         this.offer = offer;
         this.merchant = merchant;
-        this.buyer = buyer;
     }
 
     /**
@@ -36,7 +34,10 @@ public class PurchaseAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        return offer.completePurchase(buyer, map);
+        if (!actor.hasCapability(Ability.PURCHASE)) {
+            return merchant + " shakes their head. \"These hands do not deal at this hour.\"";
+        }
+        return offer.completePurchase(actor, map);
     }
 
     /**

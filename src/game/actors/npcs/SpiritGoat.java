@@ -9,7 +9,6 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Countdown;
 import game.actions.*;
 import game.actors.npcs.types.AttackableNPC;
 import game.behaviours.*;
@@ -17,6 +16,7 @@ import game.capabilities.Status;
 import game.interfaces.Curable;
 import game.interfaces.Producible;
 import game.monologueconditions.SurroundingCapabilityCondition;
+import game.time.Countdown;
 
 /**
  * A non-player character (NPC) representing a Spirit Goat.
@@ -87,6 +87,17 @@ public class SpiritGoat extends AttackableNPC implements Curable, Producible {
     public String beCuredBy(Item item, Actor user, GameMap map) {
         rotCountdown.resetCountdown();
         return "The " + item + " glows in " + user + "'s hand. Time rewinds for " + this + ", countdown reset to " + rotCountdown.getCountdown();
+    }
+
+    /**
+     * Returns the stamina cost for curing the Spirit Goat.
+     *
+     * @param actor The actor performing the curing action
+     * @return The stamina cost for curing the Spirit Goat
+     */
+    @Override
+    public int getStaminaCost(Actor actor) {
+        return 0; // Spirit Goat does not require stamina to cure
     }
 
     /**
