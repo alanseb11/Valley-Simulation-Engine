@@ -1,4 +1,4 @@
-package game.items.eggs;
+package game.items.food.eggs;
 
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;

@@ -21,7 +21,7 @@ import game.behaviours.WanderBehaviour;
 import game.behaviours.CountdownBehaviour;
 import game.interfaces.Eatable;
 import game.interfaces.Producible;
-import game.items.eggs.GoldenEgg;
+import game.items.food.eggs.GoldenEgg;
 
 /**
  * Represents a Golden Beetle NPC in the game world.

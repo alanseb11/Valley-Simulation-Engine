@@ -1,11 +1,9 @@
 package game.grounds;
 
-import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Countdown;
 import game.capabilities.Status;
+import game.items.food.Hydrofruit;
 
 public class HydrofruitSprout extends Sprout {
     private final Countdown timeUntilGrown = new Countdown(7);
@@ -30,7 +28,15 @@ public class HydrofruitSprout extends Sprout {
 
     @Override
     public void grow(Location location) {
-        return;
+        // Sets ground back to soil once it's fully grown
+        location.setGround(new Soil());
+
+        // A new Hydrofruit is added at the location once the sprout is grown
+        location.addItem(new Hydrofruit());
+        // If watered 3 or more times, then it produces twice the amount
+        if (watered >= 3) {
+            location.addItem(new Hydrofruit());
+        }
     }
 
     @Override
