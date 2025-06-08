@@ -49,6 +49,14 @@ public class BedOfChaos extends NPC implements Growable {
         parts.add(part);
     }
 
+    public int getTotalAttackDamage() {
+        int totalDamage = 0;
+        for (DamageContributor part : parts) {
+            totalDamage += part.getAttackDamage();
+        }
+        return totalDamage;
+    }
+
     @Override
     public void grow() {
         if (random.nextBoolean()) {
