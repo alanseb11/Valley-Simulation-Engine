@@ -19,13 +19,21 @@ public class Branch extends BossPart {
         return totalDamage;
     }
 
-    public void grow() {
-        if (random.nextBoolean()) {
-            Branch newBranch = new Branch();
-            newBranch.grow();
-            subParts.add(newBranch);
-        } else {
-            subParts.add(new Leaf());
+    public void grow(BedOfChaos boss) {
+        Branch currentBranch = this;
+        while (true) {
+            if (random.nextBoolean()) {
+                Branch newBranch = new Branch();
+                currentBranch.subParts.add(newBranch);
+                System.out.println("Branch grows a new Branch!");
+                currentBranch = newBranch;  // Keep growing from the new branch
+            } else {
+                currentBranch.subParts.add(new Leaf());
+                boss.increaseHp(5);
+                System.out.println("Branch grows a new Leaf!");
+
+                break;
+            }
         }
     }
 }

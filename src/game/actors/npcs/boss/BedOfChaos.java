@@ -43,6 +43,10 @@ public class BedOfChaos extends NPC implements Growable {
         return accuracy;
     }
 
+    public void increaseHp(int amount) {
+        hp += amount;
+    }
+
     public List<DamageContributor> getParts() {
         return parts;
     }
@@ -63,11 +67,13 @@ public class BedOfChaos extends NPC implements Growable {
     public void grow() {
         if (random.nextBoolean()) {
             Branch branch = new Branch();
-            branch.grow();
+            System.out.println("Bed of Chaos grows a new Branch!");
+            branch.grow(this);
             parts.add(branch);
         } else {
             parts.add(new Leaf());
             hp += 5;
+            System.out.println("Bed of Chaos grows a new Leaf!");
         }
     }
 
