@@ -1,11 +1,9 @@
 package game.time;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Ability;
 import game.capabilities.Status;
-import game.monologueconditions.SurroundingCapabilityCondition;
 
 /**
  * Represents the morning time of day in the game.
