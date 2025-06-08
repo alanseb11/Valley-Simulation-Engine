@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import game.interfaces.Growable;
-
+import edu.monash.fit2099.engine.displays.Display;
 
 public class Branch extends BossPart {
     private final List<BossPart> subParts = new ArrayList<>();
@@ -25,17 +24,19 @@ public class Branch extends BossPart {
     }
 
     public void grow(BedOfChaos boss) {
+        Display display = new Display();
+        
         Branch currentBranch = this;
         while (true) {
             if (random.nextBoolean()) {
                 Branch newBranch = new Branch();
                 currentBranch.subParts.add(newBranch);
-                System.out.println("Branch grows a new Branch!");
+                display.println("Branch grows a new Branch!");
                 currentBranch = newBranch;
             } else {
                 currentBranch.subParts.add(new Leaf());
                 boss.heal(5);
-                System.out.println("Branch grows a new Leaf!");
+                display.println("Branch grows a new Leaf!");
 
                 break;
             }

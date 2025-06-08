@@ -14,8 +14,7 @@ public class GrowAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        growable.grow();
-        return actor + " grew a new part!";
+        return growable.grow();
     }
 
     @Override

@@ -50,11 +50,11 @@ public class BedOfChaos extends AttackableNPC implements Growable {
             Branch branch = new Branch();
             parts.add(branch);
             branch.grow(this);
-            return this + "grew a new Branch!";
+            return this + " grew a new Branch!";
         } else {
             parts.add(new Leaf());
             this.heal(5);
-            return this + "grew a new Leaf!";
+            return this + " grew a new Leaf!";
         }
     }
 
@@ -72,7 +72,7 @@ public class BedOfChaos extends AttackableNPC implements Growable {
 
     @Override
     public String toString() {
-        return String.format("Bed of Chaos [HP: %d, Parts: %d]", this.getAttribute(BaseActorAttributes.HEALTH) , parts.size());
+        return String.format("Bed of Chaos [HP: %d, Parts: %d, Damage: %d]", this.getAttribute(BaseActorAttributes.HEALTH) , parts.size(), getBaseDamage() + getTotalAttackDamage());
     }
 
 
