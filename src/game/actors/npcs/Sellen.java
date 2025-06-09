@@ -9,7 +9,6 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.PurchaseAction;
 import game.actors.npcs.types.MonologuingNPC;
 import game.capabilities.Status;
-import game.interfaces.Merchant;
 import game.interfaces.PurchaseEffect;
 import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
@@ -24,7 +23,7 @@ import game.weapons.Katana;
 /**
  * Class representing the Sellen NPC.
  */
-public class Sellen extends MonologuingNPC implements Merchant {
+public class Sellen extends MonologuingNPC{
     private List<MerchantOffer> offerings = new ArrayList<>();
 
     /**
@@ -33,6 +32,7 @@ public class Sellen extends MonologuingNPC implements Merchant {
     public Sellen() {
         super("Sellen", 's', 150);
         this.addCapability(Status.MERCHANT);
+        this.addBalance(100);
 
         // Initialise monologue pool
         monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "The academy casts out those it fears. Yet knowledge, like the stars, cannot be bound forever."));
@@ -79,15 +79,4 @@ public class Sellen extends MonologuingNPC implements Merchant {
 
         return actions;
     }
-
-    /**
-     * Returns the list of merchant offerings.
-     *
-     * @return A list of MerchantOffer objects representing Sellen's offerings
-     */
-    @Override
-    public List<MerchantOffer> getOfferings() {
-        return offerings;
-    }
-
 }

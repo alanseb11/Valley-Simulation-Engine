@@ -3,7 +3,6 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.interfaces.Merchant;
 import game.purchaseeffects.MerchantOffer;
 
 /**
@@ -11,7 +10,7 @@ import game.purchaseeffects.MerchantOffer;
  */
 public class PurchaseAction extends Action {
     private MerchantOffer offer;
-    private Merchant merchant;
+    private Actor merchant;
     private Actor buyer;
 
     /**
@@ -21,7 +20,7 @@ public class PurchaseAction extends Action {
      * @param merchant The Merchant selling the offer
      * @param buyer The Actor that is buying the offer
      */
-    public PurchaseAction(MerchantOffer offer, Merchant merchant, Actor buyer) {
+    public PurchaseAction(MerchantOffer offer, Actor merchant, Actor buyer) {
         this.offer = offer;
         this.merchant = merchant;
         this.buyer = buyer;

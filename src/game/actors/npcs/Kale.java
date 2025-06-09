@@ -10,7 +10,6 @@ import game.actions.PurchaseAction;
 import game.actors.npcs.types.MonologuingNPC;
 import game.capabilities.Status;
 import game.capabilities.Threshold;
-import game.interfaces.Merchant;
 import game.interfaces.PurchaseEffect;
 import game.monologueconditions.ConditionalMonologue;
 import game.monologueconditions.DefaultCondition;
@@ -26,7 +25,7 @@ import game.weapons.DragonslayerGreatsword;
 /**
  * Class representing the Kale NPC.
  */
-public class Kale extends MonologuingNPC implements Merchant {
+public class Kale extends MonologuingNPC{
     private List<MerchantOffer> offerings = new ArrayList<>();
 
     /**
@@ -35,6 +34,7 @@ public class Kale extends MonologuingNPC implements Merchant {
     public Kale() {
         super("Kale", 'k', 200);
         this.addCapability(Status.MERCHANT);
+        this.addBalance(100);
 
         // Initialise monologue pool
         monologuePool.add(new ConditionalMonologue(new DefaultCondition(), "A merchant's life is a lonely one. But the roads... they whisper secrets to those who listen."));
@@ -73,15 +73,4 @@ public class Kale extends MonologuingNPC implements Merchant {
 
         return actions;
     }
-
-    /**
-     * Returns the offerings offered by Kale.
-     *
-     * @return A list of MerchantOffer objects representing the items available for purchase
-     */
-    @Override
-    public List<MerchantOffer> getOfferings() {
-        return offerings;
-    }
-
 }

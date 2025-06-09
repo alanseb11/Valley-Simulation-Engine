@@ -55,9 +55,12 @@ public class Lumenfruit extends Item implements Eatable, Sellable {
 
     @Override
     public String sell(Actor actor, Actor merchant) {
+        // The Lumenfruit costs 50 runes
         if (merchant.getBalance() >= 50) {
             actor.addBalance(50);
             merchant.deductBalance(50);
+            // Removes the sold item from player's inventory
+            actor.removeItemFromInventory(this);
             return actor + " has sold the " + this + " to the " + merchant + " for 50 runes.";
         } else {
             return merchant + " does not have enough runes to buy the " + this;

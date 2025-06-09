@@ -7,7 +7,6 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.interfaces.PurchaseEffect;
-import game.interfaces.Merchant;
 import game.interfaces.Purchasable;
 
 /**
@@ -15,7 +14,7 @@ import game.interfaces.Purchasable;
  * It contains the item being sold, its price, and the effects that will be applied to the buyer upon purchase.
  */
 public class MerchantOffer {
-    private Merchant merchant;
+    private final Actor merchant;
     private final Purchasable item;
     private final int price;
     private final List<PurchaseEffect> effects;
@@ -27,7 +26,7 @@ public class MerchantOffer {
      * @param price       The price of the item
      * @param effects     The effect[s] to be applied to the buyer
      */
-    public MerchantOffer(Merchant merchant, Purchasable item, int price, List<PurchaseEffect> effects) {
+    public MerchantOffer(Actor merchant, Purchasable item, int price, List<PurchaseEffect> effects) {
         this.merchant = merchant;
         this.item = item;
         this.price = price;
@@ -49,6 +48,8 @@ public class MerchantOffer {
 
         // Deduct the price from the buyer's money
         buyer.deductBalance(price);
+        // Increase the balance from the merchant's money
+        merchant.addBalance(price);
 
         // Item-specific effect
         item.uponPurchase(buyer, map);

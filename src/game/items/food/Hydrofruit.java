@@ -57,9 +57,12 @@ public class Hydrofruit extends Item implements Eatable, Sellable {
 
     @Override
     public String sell(Actor actor, Actor merchant) {
+        // The Hydrofruit costs 100 runes
         if (merchant.getBalance() >= 100) {
             actor.addBalance(100);
             merchant.deductBalance(100);
+            // Removes the sold item from player's inventory
+            actor.removeItemFromInventory(this);
             // Selling the Hydrofruit heals the actor by 5
             actor.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.INCREASE, 5);
             return actor + " has sold the " + this + " to the " + merchant + " for 100 runes.";
