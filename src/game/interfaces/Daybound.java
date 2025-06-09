@@ -14,5 +14,5 @@ public interface Daybound {
      *
      * @return the TimeManager controlling the day/night cycle for this entity
      */
-    public TimeManager getTimeManager();
+    TimeManager getTimeManager();
 }

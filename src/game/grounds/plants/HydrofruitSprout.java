@@ -2,22 +2,29 @@ package game.grounds.plants;
 
 import edu.monash.fit2099.engine.positions.Location;
 import game.time.Countdown;
-import game.capabilities.Status;
 import game.grounds.Soil;
 import game.items.food.Hydrofruit;
 
+/**
+ * A class representing the HydrofruitSprout crop.
+ */
 public class HydrofruitSprout extends Sprout {
     private final Countdown timeUntilGrown = new Countdown(7);
     private int watered = 0;
 
     /**
-     * Constructor.
+     * Constructor for HydrofruitSprout.
      */
     public HydrofruitSprout() {
         super('h', "HydrofruitSprout");
-        this.addCapability(Status.PLANTED);
     }
 
+    /**
+     * This method is called once per turn.
+     * The HydrofruitSprout slowly grows each tick until it is fully grown.
+     *
+     * @param location The location of the ground on which the HydrofruitSprout lies.
+     */
     @Override
     public void tick(Location location) {
         // Checks if the countdown for growth is expired
@@ -28,6 +35,12 @@ public class HydrofruitSprout extends Sprout {
         }
     }
 
+    /**
+     * A method grow that executes when the sprout is fully grown.
+     * The HydrofruitSprout produces 1 Hydrofruit regularly, and 2 if watered 3 or more times.
+     *
+     * @param location The location of the Sprout
+     */
     @Override
     public void grow(Location location) {
         // Sets ground back to soil once it's fully grown
@@ -41,6 +54,12 @@ public class HydrofruitSprout extends Sprout {
         }
     }
 
+    /**
+     * The water method for when the player waters the sprout.
+     * Each water increases the count of 'watered' by 1.
+     *
+     * @return A string of the action.
+     */
     @Override
     public String water() {
         watered ++;

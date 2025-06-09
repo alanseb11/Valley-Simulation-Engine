@@ -9,9 +9,9 @@ import game.purchaseeffects.MerchantOffer;
  * Represents an action to purchase an item from a Merchant.
  */
 public class PurchaseAction extends Action {
-    private MerchantOffer offer;
-    private Actor merchant;
-    private Actor buyer;
+    private final MerchantOffer offer;
+    private final Actor merchant;
+    private final Actor buyer;
 
     /**
      * Constructor for the PurchaseAction.
