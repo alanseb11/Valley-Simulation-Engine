@@ -1,7 +1,7 @@
 package game.grounds.plants;
 
 import edu.monash.fit2099.engine.positions.Location;
-import game.Countdown;
+import game.time.Countdown;
 import game.capabilities.Status;
 import game.grounds.Soil;
 import game.items.food.Hydrofruit;

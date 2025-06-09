@@ -11,7 +11,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Countdown;
+import game.time.Countdown;
 import game.actions.EatAction;
 import game.actions.ProduceAction;
 import game.actors.npcs.types.AttackableNPC;
@@ -89,7 +89,7 @@ public class GoldenBeetle extends AttackableNPC implements Eatable, Producible {
      * <p>Effects on the consumer:
      * <ul>
      *     <li>Restores 15 HP</li>
-     *     <li>Grants 1000 runes if the actor has {@link Status#PLAYER}</li>
+     *     <li>Grants 1000 runes if the actor is a player</li>
      * </ul>
      * The beetle is removed from the map after consumption.
      * </p>
