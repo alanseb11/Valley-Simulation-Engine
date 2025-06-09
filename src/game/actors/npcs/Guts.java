@@ -54,8 +54,6 @@ public class Guts extends MonologuingNPC {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        // Tick the time manager to update the time of day
-        timeManager.tick(this, map);
 
         // If the NPC is not conscious, it cannot perform any actions
         if (!this.isConscious()) {

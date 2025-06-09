@@ -1,7 +1,6 @@
 package game.time;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.Ability;
 import game.capabilities.Status;
 
@@ -24,10 +23,9 @@ public class Afternoon extends TimeOfDay {
      * and buffed actors lose their buffed capability.
      *
      * @param actor the actor to apply the effect to
-     * @param map   the game map where the effect is applied
      */
     @Override
-    public void applyEffect(Actor actor, GameMap map) {
+    public void applyEffect(Actor actor) {
         if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actor.addCapability(Ability.PURCHASE);
             actor.removeCapability(Status.BUFFED);

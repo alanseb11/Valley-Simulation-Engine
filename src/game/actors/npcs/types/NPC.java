@@ -11,16 +11,18 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actions.UnconsciousAction;
+import game.actors.statuseffects.DayCycleEffect;
 import game.behaviours.BehaviourType;
 import game.behaviours.PrioritisedBehaviourType;
 import game.behaviours.WanderBehaviour;
+import game.interfaces.Daybound;
 import game.time.TimeManager;
 
 /**
  * Abstract class representing a NPC in the game.
  * This class extends the Actor class and provides basic functionality for NPCs.
  */
-public abstract class NPC extends Actor {
+public abstract class NPC extends Actor implements Daybound {
     /**
      * A map of behaviours that the NPC can perform.
      * The key is an integer representing the priority of the behaviour.
@@ -53,6 +55,8 @@ public abstract class NPC extends Actor {
         
         // Registering the behaviours for the NPC
         behaviours.put(99, new WanderBehaviour());
+
+        this.addStatusEffect(new DayCycleEffect(this));
     }
 
     /**
@@ -75,8 +79,7 @@ public abstract class NPC extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        timeManager.tick(this, map);
-        
+    
         // If the NPC is not conscious, it cannot perform any actions
         if (!this.isConscious()) {
             return new UnconsciousAction();
@@ -89,5 +92,9 @@ public abstract class NPC extends Actor {
         }
 
         return new DoNothingAction();
+    }
+
+    public TimeManager getTimeManager() {
+        return timeManager;
     }
 }

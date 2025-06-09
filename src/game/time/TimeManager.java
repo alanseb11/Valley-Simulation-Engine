@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.GameMap;
 
 /**
  * TimeManager class to manage the time of day in the game.
@@ -39,19 +38,23 @@ public class TimeManager {
      * Manages the ticking of time in the game.
      * 
      * @param actor     the actor to apply the effect to
-     * @param gameMap   the game map where the effect is applied
      */
-    public void tick(Actor actor, GameMap gameMap) {
+    public void tick(Actor actor) {
         TimeOfDay currentTime = getCurrentTime();
-        currentTime.applyEffect(actor, gameMap); // Apply effects of the current time of day
-        currentTime.tick(); // Decrement the countdown for the current time of day
-
-        // Check if the current time has passed
+    
         if (currentTime.hasPassed()) {
+            currentTime.reset();
+    
             // Move to the next time of day
             currentTimeIndex = (currentTimeIndex + 1) % dayCycle.size();
-            // Reset the new current time
-            dayCycle.get(currentTimeIndex).reset();
+            TimeOfDay nextTime = dayCycle.get(currentTimeIndex);
+            
+            nextTime.applyEffect(actor);
+            nextTime.tick();
+        } else {
+            currentTime.applyEffect(actor);
+            currentTime.tick();
         }
+        
     }
 }
